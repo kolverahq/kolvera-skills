@@ -14,7 +14,7 @@ No prompt engineering. No clicking around the app. Just talk to Claude.
 
 ## ⚡ Quick start (about 5 minutes, no coding)
 
-You need two things: **connect Kolvera to Claude once**, then **add the skills you want**. Both are done from inside Claude — no terminal required.
+Two things: **connect Kolvera to Claude once**, then **add the skills you want**. Both are done inside Claude — no terminal required.
 
 ### Step 1 — Connect Kolvera to Claude (once)
 
@@ -31,27 +31,29 @@ This lets Claude actually run things in your Kolvera account.
 
 ### Step 2 — Turn on Skills (one-time, if you haven't)
 
-Skills run inside Claude's code sandbox, so it has to be enabled:
+Skills run in Claude's sandbox, so it has to be enabled:
 - **Settings → Capabilities → Code execution → On** (Free, Pro, and Max plans).
 - On **Team / Enterprise**, an admin enables *Code execution* + *Skills* for the workspace first.
 
 ### Step 3 — Add a skill and use it
 
-1. **Download a skill** — grab its `.zip` from the table below (one click).
+1. **Download a skill** — click **⬇ Download** next to any skill below (one file).
 2. In Claude, go to **Customize → Skills → ＋** and **upload the `.zip`**. Toggle it **on**.
-3. **Say the trigger phrase** in any chat — e.g. *"Map the market for commercial cleaning in Melbourne."*
+3. **Say the trigger phrase** — e.g. *"Map the market for commercial cleaning in Melbourne."*
 
-That's it. Claude now runs that whole workflow for you, pausing at each gate to check in.
+That's it. Claude runs the whole workflow, pausing at each gate to check in with you.
 
-> **New here? Install these three first:** **map-the-market**, **icp-review**, and **campaign-build** (in the table below). They cover most of the work.
+> **New here? Start with these three:** **map-the-market**, **icp-review**, and **campaign-build**. They cover most of the work.
 
 ---
 
 ## 📦 The skills
 
-Every skill is consultative by design — it **reviews your setup, flags what's weak, suggests improvements, and confirms with you before spending credits.** (That behaviour comes from the **`kolvera-guidelines`** skill — upload it once and it applies across all of them.)
+Every skill lives in the [`skills/`](skills/) folder. They group into three jobs — **Find → Organize → Engage** — the same shape as working a market in Kolvera.
 
-### 🟢 Core skills — *work for any vertical (recruitment, sales, IT/MSP, HR, facilities…)*
+Each is consultative by design: it **reviews your setup, flags what's weak, suggests improvements, and confirms before spending credits** (that behaviour ships as the `kolvera-guidelines` skill — add it once and it applies to all of them).
+
+### 🔍 Find — build your market and surface the right targets
 
 | Skill | Say this to Claude | What it does | Get it |
 |---|---|---|---|
@@ -59,32 +61,32 @@ Every skill is consultative by design — it **reviews your setup, flags what's 
 | **icp-review** | *"Review my ICP"* | Audits your targeting — tightens industries, sharpens exclusions, fills gaps. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/icp-review.zip) |
 | **deep-research** | *"Run deep research on my ICP"* | Discovers companies you didn't know existed, with smart stop rules so you don't waste credits. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/deep-research.zip) |
 | **job-scrape** | *"Scrape job boards for my ICP"* | Runs SEEK / LinkedIn / Indeed scrapes, filters results, finds who's actively hiring. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/job-scrape.zip) |
+| **company-research** | *"Research [company name]"* | Single-company deep dive: AI research, decision-makers, hiring signals, buying triggers, recommended approach. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/company-research.zip) |
+
+### 🗂️ Organize — enrich, sort, segment, and keep records clean
+
+| Skill | Say this to Claude | What it does | Get it |
+|---|---|---|---|
 | **contact-enrichment** | *"Enrich contacts for my ICP"* | Finds decision-makers at your targets, with verified emails and phone numbers. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/contact-enrichment.zip) |
 | **prospect-sort** | *"Sort my new contacts"* | Classifies contacts into prospects, candidates, and junk; links them to the right profiles. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/prospect-sort.zip) |
-| **process-scrape** | *"I just scraped 50 contacts from LinkedIn"* | Dedupes, classifies by title, finds emails, builds hot lists. Works for prospect *and* candidate scrapes. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/process-scrape.zip) |
-| **hot-list-build** | *"Build hot lists for my ICP"* | Segments prospects into S/A/B tiers, ready for campaigns. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/hot-list-build.zip) |
+| **process-scrape** | *"I just scraped 50 contacts from LinkedIn"* | Dedupes, classifies by title, finds emails, builds hot lists. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/process-scrape.zip) |
+| **hot-list-build** | *"Build hot lists for my ICP"* | Segments people into S/A/B tiers, ready for outreach. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/hot-list-build.zip) |
+| **candidate-pipeline** | *"Move [name] to [stage]"* | Manage stages, grades, notes, and next actions across your candidate pipeline. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/candidate-pipeline.zip) |
+| **deal-pipeline** | *"Review my pipeline"* | Flags stale records, surfaces next actions, recommends adjustments. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/deal-pipeline.zip) |
+
+### 📣 Engage — run outreach and keep momentum
+
+| Skill | Say this to Claude | What it does | Get it |
+|---|---|---|---|
 | **campaign-build** | *"Build a campaign for [hot list]"* | Multi-step email campaigns with the T.I.P.S. framework — copy, inboxes, enrolment, activation. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/campaign-build.zip) |
+| **rmp-campaign** | *"Take [name] to market"* | Take one person to market end-to-end: build their profile → match companies → find buyers → launch the campaign. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/rmp-campaign.zip) |
 | **campaign-health** | *"Check my campaigns"* | Fast health check — flags bounces, low opens, inbox problems, dead campaigns. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/campaign-health.zip) |
 | **morning-briefing** | *"Morning briefing"* | Daily digest: meetings, replies, follow-ups, pipeline alerts, top 3 priorities. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/morning-briefing.zip) |
 | **weekly-review** | *"Weekly review"* | End-of-week synthesis: what moved, what's hot, where to focus next week. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/weekly-review.zip) |
 
-### 🧑‍💼 Recruitment
-
-| Skill | Say this to Claude | What it does | Get it |
-|---|---|---|---|
-| **rmp-campaign** | *"Take [candidate] to market"* | Full Reverse Market Profile workflow: create profile → match companies → find prospects → build campaign → activate. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/rmp-campaign.zip) |
-| **candidate-pipeline** | *"Move [candidate] to [stage]"* | Manage candidate stages, grades, notes, and next actions across your pipeline. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/candidate-pipeline.zip) |
-
-### 💼 B2B Sales
-
-| Skill | Say this to Claude | What it does | Get it |
-|---|---|---|---|
-| **deal-pipeline** | *"Review my pipeline"* | Flags stale prospects, surfaces next actions, recommends adjustments. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/deal-pipeline.zip) |
-| **company-research** | *"Research [company name]"* | Deep dive: AI research, decision-makers, hiring signals, buying triggers, recommended approach. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/company-research.zip) |
-
-> **Don't want to pick?** [⬇ **Download all skills**](https://github.com/kolverahq/kolvera-skills/releases/latest/download/kolvera-skills-all.zip) (one zip per skill inside — upload the ones you want). Also grab **[`guidelines.zip`](https://github.com/kolverahq/kolvera-skills/releases/latest/download/guidelines.zip)** so Claude stays consultative across all of them.
-
-*More vertical packs (IT/MSP, HR consulting, facilities) are on the way — the core skills already work for those today.*
+> **➕ Add the behaviour layer:** [⬇ **guidelines.zip**](https://github.com/kolverahq/kolvera-skills/releases/latest/download/guidelines.zip) — makes every skill consultative (review → suggest → confirm → run). Upload it once.
+>
+> **Don't want to pick?** [⬇ **Download everything**](https://github.com/kolverahq/kolvera-skills/releases/latest/download/kolvera-skills-all.zip) (one zip per skill inside — unzip, then upload the ones you want).
 
 ---
 
@@ -110,7 +112,7 @@ Most actions are free. Credits are only spent on data and AI generation, and **e
 | Contact found *with verified email* | 2 credits |
 | Phone number found | 6 cr direct dial · 2 cr company line · 0 cr if already on file or BYOK |
 | Research one company | 1 credit |
-| Market / Role Intelligence report | 10 credits (Pro & Agency) |
+| Market / Role Intelligence report | 10 credits |
 | Job board scraping | Uses your monthly scrape allowance (not credits) |
 | Sorting, hot lists, campaigns, reviews, pipeline | Free |
 
@@ -129,7 +131,7 @@ Most actions are free. Credits are only spent on data and AI generation, and **e
 Three end-to-end runs you can copy. Each line in a code block is something you *say* to Claude — it does the rest.
 
 <details>
-<summary><b>① Your first ICP in 15 minutes</b> — a target market from scratch</summary>
+<summary><b>① Your first market in 15 minutes</b> — Find</summary>
 
 <br>
 
@@ -153,72 +155,65 @@ Three end-to-end runs you can copy. Each line in a code block is something you *
    ```
    Summary: how many companies, how many contacts found, how many valid emails, and which companies still need contacts?
    ```
-
-Next: *"Scrape SEEK and LinkedIn for my ICP"* → *"Build hot lists for my ICP"* → *"Build a campaign for my top hot list."*
 </details>
 
 <details>
-<summary><b>② Recruitment quickstart</b> — map the market → place candidates</summary>
+<summary><b>② From a target list to a live campaign</b> — Organize → Engage</summary>
 
 <br>
 
-**Flow:** map the market → screen candidates → build RMPs → launch campaigns → place.
-
-1. **Map your market:**
+1. **Sort and enrich what you've gathered:**
    ```
-   Map the market for [your niche]. Target [buyer titles] at [company types], [size range] employees, in [locations].
+   Sort my new contacts, then find emails for the ones missing them.
    ```
-2. **Screen & qualify a candidate:**
+2. **Segment into tiers:**
    ```
-   Move [candidate] to active, grade them A, add screening notes: [summary]. Set their next action to "send to [company]" on [date].
+   Build hot lists for my ICP, S/A/B by seniority and fit.
    ```
-3. **Take a candidate to market (RMP):**
-   ```
-   Take [candidate] to market. They're a [role] looking for [perm/contract/both] at [salary/rate]. Create the RMP, cross-reference my ICP, and build the campaign.
-   ```
-4. **Monitor:** *"Check my campaigns"* (daily) · *"Weekly review"* (Fridays).
-5. **Handle a positive reply:** prep the candidate pack, get written authority to represent, submit within 24h, then:
-   ```
-   Move [prospect] to meeting_booked. Note: "[reply summary]". Next action: "send candidate profile" on [date].
-   ```
-
-**Tips:** lead with *candidates*, not services · one RMP per candidate (it can feed several campaigns) · never name the candidate in emails until authority is confirmed · companies still advertising after 5+ days convert best.
-</details>
-
-<details>
-<summary><b>③ B2B sales quickstart</b> — map the market → manage pipeline</summary>
-
-<br>
-
-**Flow:** map the market → enrich → segment hot lists → launch campaigns → manage pipeline.
-
-1. **Map your market:**
-   ```
-   Map the market for [your niche]. I sell [product] to [buyer titles] at [company types] in [locations].
-   ```
-2. **Research a priority target:**
-   ```
-   Research [company name]
-   ```
-3. **Build & launch a campaign** (T.I.P.S. — two threads, two pains, 21 days):
+3. **Build and launch a campaign** (T.I.P.S. — two threads, two pains, 21 days):
    ```
    Build a campaign for my [hot list] hot list. Pain 1: [describe]. Pain 2: [describe]. Social proof: [customer + metric].
    ```
-4. **Daily:** *"Morning briefing"* · *"Check my campaigns."*
-5. **Weekly:** *"Review my pipeline"* (flags stale prospects, surfaces next actions).
-6. **Handle a reply:**
+4. **Taking one person to market instead?** Use `rmp-campaign`:
    ```
-   Move [prospect] to replied. Note: "[summary]". Next action: "[what to do]" on [date].
+   Take [name] to market. Create their profile, cross-reference my ICP, find buyers, and build the campaign.
    ```
 
-**Tips:** run Deep Research before campaigns (it populates buying triggers for personalisation) · set concrete ICP pain points · use named-customer proof, not soft fallbacks · companies actively hiring are your highest-intent targets.
+**Tips:** run Deep Research before campaigns (it populates triggers for personalisation) · set concrete ICP pain points · use named-customer proof, not soft fallbacks.
+</details>
+
+<details>
+<summary><b>③ Your daily & weekly rhythm</b> — Engage</summary>
+
+<br>
+
+- **Each morning:**
+  ```
+  Morning briefing
+  ```
+  (meetings, replies, follow-ups, pipeline alerts, your top 3 priorities)
+- **Mid-day campaign check:**
+  ```
+  Check my campaigns
+  ```
+  (flags bounces, low opens, inbox issues, dead campaigns)
+- **Review the pipeline:**
+  ```
+  Review my pipeline
+  ```
+- **Fridays:**
+  ```
+  Weekly review
+  ```
+
+**Handling a reply:** move the record forward and set the next step, e.g. *"Move [name] to meeting_booked. Note: '[summary]'. Next action: '[what to do]' on [date]."*
 </details>
 
 ---
 
 ## 🛠 Advanced — Claude Code & power users
 
-Prefer the filesystem? Each skill is a folder with a single `SKILL.md` inside. Clone the repo and drop the folders into your skills directory:
+Prefer the filesystem? Every skill is a folder with a single `SKILL.md` inside `skills/`. Clone and drop them into your skills directory:
 
 ```bash
 git clone https://github.com/kolverahq/kolvera-skills.git
