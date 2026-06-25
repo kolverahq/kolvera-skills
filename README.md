@@ -126,10 +126,93 @@ Most actions are free. Credits are only spent on data and AI generation, and **e
 
 ## 📖 Walkthroughs
 
-The [`examples/`](examples/) folder has plain-English, step-by-step runs:
-- **[first-icp-in-15-minutes.md](examples/first-icp-in-15-minutes.md)** — your first target market from scratch
-- **[recruitment-quickstart.md](examples/recruitment-quickstart.md)** — end-to-end recruitment workflow
-- **[b2b-sales-quickstart.md](examples/b2b-sales-quickstart.md)** — end-to-end B2B sales workflow
+Three end-to-end runs you can copy. Each line in a code block is something you *say* to Claude — it does the rest.
+
+<details>
+<summary><b>① Your first ICP in 15 minutes</b> — a target market from scratch</summary>
+
+<br>
+
+1. **Set your business context** (who you are, what you sell, your voice — everything inherits from this):
+   ```
+   Build my business context from [your-website-url] and set it as primary.
+   ```
+2. **Create your ICP:**
+   ```
+   Generate an ICP titled "AU HR Tech — Decision Makers" targeting HR tech companies in Australia with 20-500 employees, using my primary business context. Show me the full profile.
+   ```
+3. **Discover companies** (Deep Research, 3 cr; each expand 2 cr):
+   ```
+   Run Deep Research against my ICP, then show the results summary and company count.
+   ```
+4. **Find decision-makers:**
+   ```
+   Find contacts at the top 10 companies in my ICP, starting with the 50+ employee ones.
+   ```
+5. **Review:**
+   ```
+   Summary: how many companies, how many contacts found, how many valid emails, and which companies still need contacts?
+   ```
+
+Next: *"Scrape SEEK and LinkedIn for my ICP"* → *"Build hot lists for my ICP"* → *"Build a campaign for my top hot list."*
+</details>
+
+<details>
+<summary><b>② Recruitment quickstart</b> — map the market → place candidates</summary>
+
+<br>
+
+**Flow:** map the market → screen candidates → build RMPs → launch campaigns → place.
+
+1. **Map your market:**
+   ```
+   Map the market for [your niche]. Target [buyer titles] at [company types], [size range] employees, in [locations].
+   ```
+2. **Screen & qualify a candidate:**
+   ```
+   Move [candidate] to active, grade them A, add screening notes: [summary]. Set their next action to "send to [company]" on [date].
+   ```
+3. **Take a candidate to market (RMP):**
+   ```
+   Take [candidate] to market. They're a [role] looking for [perm/contract/both] at [salary/rate]. Create the RMP, cross-reference my ICP, and build the campaign.
+   ```
+4. **Monitor:** *"Check my campaigns"* (daily) · *"Weekly review"* (Fridays).
+5. **Handle a positive reply:** prep the candidate pack, get written authority to represent, submit within 24h, then:
+   ```
+   Move [prospect] to meeting_booked. Note: "[reply summary]". Next action: "send candidate profile" on [date].
+   ```
+
+**Tips:** lead with *candidates*, not services · one RMP per candidate (it can feed several campaigns) · never name the candidate in emails until authority is confirmed · companies still advertising after 5+ days convert best.
+</details>
+
+<details>
+<summary><b>③ B2B sales quickstart</b> — map the market → manage pipeline</summary>
+
+<br>
+
+**Flow:** map the market → enrich → segment hot lists → launch campaigns → manage pipeline.
+
+1. **Map your market:**
+   ```
+   Map the market for [your niche]. I sell [product] to [buyer titles] at [company types] in [locations].
+   ```
+2. **Research a priority target:**
+   ```
+   Research [company name]
+   ```
+3. **Build & launch a campaign** (T.I.P.S. — two threads, two pains, 21 days):
+   ```
+   Build a campaign for my [hot list] hot list. Pain 1: [describe]. Pain 2: [describe]. Social proof: [customer + metric].
+   ```
+4. **Daily:** *"Morning briefing"* · *"Check my campaigns."*
+5. **Weekly:** *"Review my pipeline"* (flags stale prospects, surfaces next actions).
+6. **Handle a reply:**
+   ```
+   Move [prospect] to replied. Note: "[summary]". Next action: "[what to do]" on [date].
+   ```
+
+**Tips:** run Deep Research before campaigns (it populates buying triggers for personalisation) · set concrete ICP pain points · use named-customer proof, not soft fallbacks · companies actively hiring are your highest-intent targets.
+</details>
 
 ---
 
@@ -139,7 +222,7 @@ Prefer the filesystem? Each skill is a folder with a single `SKILL.md` inside. C
 
 ```bash
 git clone https://github.com/kolverahq/kolvera-skills.git
-cp -r kolvera-skills/core/* kolvera-skills/recruitment/* kolvera-skills/b2b-sales/* ~/.claude/skills/
+cp -r kolvera-skills/skills/* ~/.claude/skills/
 ```
 
 `~/.claude/skills/` is picked up by Claude Code automatically. (Claude.ai web and Desktop use the upload flow in Step 3 — skills don't sync between the web app and the filesystem, so install them where you'll use them.)
