@@ -31,8 +31,8 @@ This lets Claude actually run things in your Kolvera account.
 
 ### Step 2 — Turn on Skills (one-time, if you haven't)
 
-Skills run in Claude's sandbox, so it has to be enabled:
-- **Settings → Capabilities → Code execution → On** (Free, Pro, and Max plans).
+Skills run in Claude's code sandbox and are available on Claude's **paid plans (Pro, Max, Team, Enterprise)** — they aren't available on Free.
+- **Settings → Capabilities → "Code execution and file creation" → On** (Pro and Max).
 - On **Team / Enterprise**, an admin enables *Code execution* + *Skills* for the workspace first.
 
 ### Step 3 — Add a skill and use it
@@ -122,7 +122,7 @@ Most actions are free. Credits are only spent on data and AI generation, and **e
 
 - A **Kolvera account** on any plan — [kolvera.io](https://kolvera.io)
 - **Kolvera connected to Claude** (Step 1 above)
-- **A Claude plan that supports Skills + Connectors** — Free works for getting started; Pro/Max/Team give you more connectors and usage
+- **A Claude plan with Skills** — Pro, Max, Team, or Enterprise (Skills aren't available on Free). Custom connectors work on Free too, but the skills need a paid plan.
 
 ---
 
