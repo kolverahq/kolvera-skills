@@ -1,5 +1,5 @@
 ---
-name: kolvera-guidelines
+name: guidelines
 description: Consultative operating style for every Kolvera workflow — review the setup, flag weak spots, suggest specific improvements, and confirm before spending credits. Use whenever running any Kolvera skill (mapping a market, building campaigns, enriching contacts, managing pipeline).
 ---
 
