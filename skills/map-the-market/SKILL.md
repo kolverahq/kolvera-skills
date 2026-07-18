@@ -232,6 +232,14 @@ Shortlist after user confirmation: `update_pipeline_job` with status `shortliste
 
 **APPROVAL GATE 3** — Show the final hot lists with counts and tier breakdowns. "Here's your market map summary: [total companies], [total contacts], [S/A/B breakdown]. The S-tier list is ready for a campaign right now. Want me to build one, or do you want to review the lists first?"
 
+## Step 9 — Activate the Desk (keep it working for you)
+
+The map is a one-time build; a **Desk** keeps finding new targets automatically. Activating turns the ICP into a live Desk — it classifies the mapped companies and switches on the discovery Feed (new hiring at matching companies surfaces as "New Leads" going forward).
+
+→ Run `activate_desk` with the ICP ID. It's free and idempotent.
+→ Then run `diagnose_desk` once to confirm the discovery queue is clean — it reports the queue by sector and size and flags any noise (e.g. an over-broad accepted sector) with the fix. If it flags junk, tighten `excluded_sectors` / `target_company_sizes` via `update_icp_profile` (the `icp-review` skill walks this).
+→ Tell the user: "Your desk is live — I'll keep surfacing new companies that start hiring your target roles. Check `diagnose_desk` any time the New Leads look noisy."
+
 ---
 
 ## Output
@@ -241,7 +249,7 @@ The completed market map includes:
 → Deep Research discovery results (with insights on market shape)
 → Job board scrape results with pipeline matches
 → Enriched contacts sorted into prospects (and candidates if applicable)
-→ Tiered hot lists ready for campaign enrollment
+→ Tiered hot lists ready for campaign enrolment
 → Specific recommendations for next steps
 
 **Next step:** Use the `campaign-build` skill to create and launch outreach campaigns against the hot lists.

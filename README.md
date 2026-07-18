@@ -58,7 +58,7 @@ Each is consultative by design: it **reviews your setup, flags what's weak, sugg
 | Skill | Say this to Claude | What it does | Get it |
 |---|---|---|---|
 | **map-the-market** | *"Map the market for [your niche]"* | The full pipeline end-to-end: ICP → Deep Research → job scraping → contacts → hot lists. ~30–60 min with approval gates. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/map-the-market.zip) |
-| **icp-review** | *"Review my ICP"* | Audits your targeting — tightens industries, sharpens exclusions, fills gaps. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/icp-review.zip) |
+| **icp-review** | *"Review my ICP"* or *"Why is my desk noisy?"* | Runs the desk health check (`diagnose_desk`) to pinpoint discovery-queue noise, then audits your targeting — tightens industries, sharpens exclusions, fixes the sector/size gates that let junk through. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/icp-review.zip) |
 | **deep-research** | *"Run deep research on my ICP"* | Discovers companies you didn't know existed, with smart stop rules so you don't waste credits. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/deep-research.zip) |
 | **job-scrape** | *"Scrape job boards for my ICP"* | Runs SEEK / LinkedIn / Indeed scrapes, filters results, finds who's actively hiring. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/job-scrape.zip) |
 | **company-research** | *"Research [company name]"* | Single-company deep dive: AI research, decision-makers, hiring signals, buying triggers, recommended approach. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/company-research.zip) |
@@ -92,7 +92,7 @@ Each is consultative by design: it **reviews your setup, flags what's weak, sugg
 
 ## 💡 Get better results
 
-Add the **Kolvera MCP Prompt Guide PDF** to your Claude **Project knowledge** (next to the skills). It gives Claude the full tool reference (all 179 tools), polling timings, and known workarounds, so workflows run more reliably.
+Add the **Kolvera MCP Prompt Guide PDF** to your Claude **Project knowledge** (next to the skills). It gives Claude the full tool reference (every Kolvera tool), polling timings, and known workarounds, so workflows run more reliably.
 
 → Download it from **[kolvera.io/guide/claude](https://kolvera.io/guide/claude)**.
 

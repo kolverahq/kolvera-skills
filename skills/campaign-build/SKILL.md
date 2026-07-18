@@ -1,11 +1,11 @@
 ---
 name: campaign-build
-description: Build and launch multi-step email campaigns in Kolvera using the T.I.P.S. cold email framework. Covers campaign creation, AI step generation, copy review, inbox assignment, enrollment, and activation. Trigger when the user says "build a campaign", "create a campaign", "launch outreach", "set up email sequence", "write campaign emails", or any variation of building email campaigns. Maps to MCP Prompt Guide Phase 9 and the T.I.P.S. Cold Email Playbook.
+description: Build and launch multi-step email campaigns in Kolvera using the T.I.P.S. cold email framework. Covers campaign creation, AI step generation, copy review, inbox assignment, enrolment, and activation. Trigger when the user says "build a campaign", "create a campaign", "launch outreach", "set up email sequence", "write campaign emails", or any variation of building email campaigns. Maps to MCP Prompt Guide Phase 9 and the T.I.P.S. Cold Email Playbook.
 ---
 
 # Campaign Build
 
-Create and launch a multi-step email campaign in Kolvera. Uses the T.I.P.S. framework for high-converting cold email sequences. Covers strategy, creation, copy, inbox assignment, enrollment, and activation.
+Create and launch a multi-step email campaign in Kolvera. Uses the T.I.P.S. framework for high-converting cold email sequences. Covers strategy, creation, copy, inbox assignment, enrolment, and activation.
 
 **Credit cost:** Free (campaign creation and steps). AI step generation uses Claude Sonnet — no Kolvera credits.
 
@@ -118,7 +118,7 @@ Two threads. Two pains. Seven emails across 21 days.
 → `enrol_contacts_in_campaign` — enrol contacts from the target hot list
 → `get_campaign_enrollments` to verify enrollment count and check for errors
 
-**Enrollment rules:**
+**Enrolment rules:**
 → Contacts can be enrolled while the campaign is **draft or active**. A **paused** campaign rejects enrolment — **resume it first**, then enrol.
 → Contacts enrolled mid-sequence start from Step 1
 → Existing contacts continue from their current position when new steps are added
