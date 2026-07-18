@@ -29,10 +29,7 @@ Claude should suggest segmentation strategies based on what it sees in the data 
 → `create_hot_list` with `icp_id` or `reverse_market_profile_id` linked to a parent project
 → Use clear naming (e.g. "[Vertical] — [Audience]", "[Engagement Type] — [Segment]")
 → Check `list_hot_lists` first to avoid duplicates
-→ Or use `build_target_hotlist` to auto-segment based on ICP scoring
-
-**Alternative: AI segmentation**
-→ `segment_icp_into_hotlists` splits companies into tier-labelled hot lists automatically — one per market segment
+→ Or use `build_target_hotlist` to auto-segment an ICP's members into tier-labelled hot lists based on ICP scoring — the fastest path when you just want the split done for you
 
 ## Step 3 — Tier prospects
 

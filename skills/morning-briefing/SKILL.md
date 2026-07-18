@@ -39,7 +39,7 @@ Use this first. The manual tools below are a fallback or supplement — pull the
 
 ### 5. Upcoming deadlines
 → Candidates with competing processes or notice period deadlines
-→ Campaign enrollments completing their sequence (last step sent)
+→ Campaign enrolments completing their sequence (last step sent)
 → Scrape configs due for a re-run
 
 ## Output format
