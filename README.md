@@ -104,8 +104,9 @@ Say **"review my desk"** or **"why is my desk noisy?"** and Claude will:
 6. **Locations** — the geography you can actually deliver to.
 7. **Re-diagnose** — confirm the flags cleared and the queue tightened.
 8. **Clean what's left** — leads from the old, broad settings linger; Claude dismisses the junk and routes anything that belongs to a *different* desk over to it.
+9. **Audit the company map** — the queue isn't the whole story: companies added under the old, broad settings are already *on* the desk. Claude lists the map (`list_icp_companies`), judges each against the desk's "who fits", then removes what never belonged (`bulk_unlink_companies_from_icp`), routes wrong-vertical companies to the desk they *do* fit (`move_companies_between_icps`), and runs `research_company` (1 cr) on any it can't judge before deciding. **Companies with live BD state — a reply, a meeting, an active sequence — are never removed automatically; those stay your call.**
 
-The point: **roles ≠ buyers, and both are separate from sectors and sizes.** Getting those four right — in that order — is what makes a desk surface the right companies and nothing else.
+The point: **roles ≠ buyers, and both are separate from sectors and sizes.** Getting those four right — in that order — is what makes a desk surface the right companies and nothing else. Then the map audit clears out what the old settings let in.
 
 ---
 

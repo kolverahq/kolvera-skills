@@ -187,6 +187,17 @@ Based on the review:
 → "Your scrape config was built off the old ICP keywords. I'd suggest updating it to match. Should I review it?"
 → "You have [X] companies in the ICP from before this review. Some of them might no longer fit the tighter criteria. Want me to run an ICP cleanse to check?"
 
+## Step 6 — Audit the company map (the cleanse, when the user says yes)
+
+The queue fixes stop NEW noise; companies mapped under the old settings are still on the desk. A real audit (Jul 2026) found 33-67% of mapped companies on long-running desks were wrong-vertical or invalid.
+
+1. `list_icp_companies` for the desk. Judge every company against the desk's `who_fits` / vertical — name + industry + notes. Be strict: borderline ≠ valid.
+2. Bucket: **valid** (stays) / **wrong vertical** (belongs on a different desk) / **invalid** (not a software product co, global giant far over the size band, duplicate) / **unsure**.
+3. `research_company` (1 cr each — confirm spend first) on the unsures, then re-bucket on the findings. Watch for: no local operations, services-not-product, acquired/defunct, misidentified records.
+4. Execute: `bulk_unlink_companies_from_icp` for invalid; `move_companies_between_icps` for wrong-vertical (keeps the company, files it right — prospects move with it).
+5. **Never remove a company with live BD state.** Check `bd_status` — a reply, meeting, or active sequence means you flag it to the user and leave it. Removal there is always a human decision.
+6. Report the before/after count and any BD triggers the research surfaced (companies hiring the roles the user places are warm leads, not just noise).
+
 ## Known issues
 
 → ICP prospect count may differ between UI and API. Pull the ICP directly to verify.
