@@ -14,14 +14,16 @@ Audit an existing Ideal Client Profile (a "Desk", once activated) — first with
 
 Before eyeballing anything, run `diagnose_desk` with the ICP/Desk ID. It answers "why is this desk's discovery queue noisy?" in one call, so you review from evidence rather than guesswork:
 
-- **config** — the accepted sectors (the gate's allow-list), excluded sectors (the veto), and the size ceiling derived from target_company_sizes
+- **config** — accepted sectors (the gate's allow-list), excluded sectors (the veto), the size ceiling from target_company_sizes, `scrape_role_count`, and `buyer_titles_in_scrape_net`
 - **discovery** — the live New-Leads queue broken down `by_sector` and `by_size` (in_band / over_ceiling / unknown)
 - **enrichment** — % of queue companies with a known size and a known sector
 - **flags** — plain-English findings each paired with a fix
 
-**Read the flags out loud to the user and act on them — they are the fastest wins:**
+**Read the flags out loud to the user and act on them — they are the fastest wins. Address them in this order (definition before filters):**
 
-→ *"'Recruitment & Staffing' is an accepted sector contributing 47 leads"* → almost never a real target for a product/software desk. Offer to add it (and "IT Services & Consulting", "Professional Services" if flagged) to `excluded_sectors`. This is the single biggest noise reducer — it vetoes those companies at the gate, permanently, including future reposts.
+→ **BUYER-TITLE LEAK (do this first — the widest lever).** *"3 buyer/leadership titles are in your scrape net — Head of Customer Success, VP Sales…"* → these are titles you SELL TO (buyers), not roles you PLACE, and they match at almost every company. This is usually the single biggest noise source. The desk has **two separate lists people conflate**: the *roles you recruit for* (the scrape keywords — job titles you place) and *buyer titles* (`target_titles` — who you sell to). A buyer title must live only in `target_titles`. Offer to remove the leaked ones from the scrape net via `update_scrape_config` (keywords) and keep `recruited_roles` in sync via `update_icp_profile` — leaving the buyer titles in `target_titles` untouched. While here, also sanity-check the roles: broad or junior titles (SDR, BDR, generic "Manager", plain "Account Executive") match everywhere — keep the net to the specialist roles the desk actually places.
+
+→ *"'Recruitment & Staffing' is an accepted sector contributing 47 leads"* → almost never a real target for a product/software desk. Offer to add it (and "IT Services & Consulting", "Professional Services" if flagged) to `excluded_sectors`. This vetoes those companies at the gate, permanently, including future reposts.
 
 → *"70% of queue companies have no known employee_count"* → the size gate can't filter mega-caps it can't measure. This is a data-coverage gap, not a config error: suggest enriching those companies (Deep Research / Find Contacts) so size filtering can apply. Set expectations honestly — the queue thins as enrichment fills in, it won't clear instantly.
 
@@ -29,7 +31,7 @@ Before eyeballing anything, run `diagnose_desk` with the ICP/Desk ID. It answers
 
 → *"No accepted sectors derived"* → the sector gate is OFF entirely; every industry the keywords match lands in discovery. Fix by setting `target_industries` so a sector allow-list can be derived.
 
-Why this matters: discovery filters by **sector** and **size**. A broad-sector desk (accepting "SaaS / Software" plus staffing plus consulting) lets everything through; and the sector gate alone can't tell a 70,000-person enterprise from a 200-person startup in the same sector — that's what the size ceiling is for. `diagnose_desk` shows you exactly which of these is leaking.
+Why this matters: noise enters at two stages. The **scrape net** (the roles you recruit for) decides which jobs get pulled at all — too broad and every company floods in before any filter runs. Then two gates filter what's left: **sector** (accepted industries minus the veto) and **size** (the ceiling from target_company_sizes — the sector gate alone can't tell a 70,000-person enterprise from a 200-person startup in the same sector). Fix the net first, then the gates. `diagnose_desk` shows which of the three is leaking.
 
 After you apply the flag fixes (Step 4), re-run `diagnose_desk` to confirm the queue tightened. Then continue the field-by-field review below for the judgment calls the automated check can't make.
 
@@ -54,7 +56,25 @@ Also pull the business context: `list_business_contexts` and review the primary.
 
 ## Step 2 — Walk through every field
 
-### Target titles
+**Order matters:** roles → buyer titles → sectors → sizes → locations. The roles you recruit for are the widest lever on discovery noise (they decide what gets scraped at all); the rest are filters on what's left. And roles and buyer titles are two different lists — don't merge them.
+
+### Roles you recruit for (the scrape net)
+
+These are the **job titles you place** — they drive job-board monitoring, so they're the first thing that shapes your discovery queue. (Editable as `recruited_roles` on the profile and `keywords` on the linked scrape config — keep the two in sync.)
+
+**What to check:**
+→ Any **buyer/leadership titles** in here (Head of…, VP…, Chief…, Director, Founder)? Those belong in Target titles, NOT here — they match at nearly every company and flood the queue. `diagnose_desk` flags these as `buyer_titles_in_scrape_net`; this is the #1 noise fix.
+→ Any **broad or junior titles** that match everywhere? SDR, BDR, generic "Manager", plain "Account Executive" appear at almost every company — keep them only if you genuinely place them, and expect volume if you do.
+→ Are these the specialist roles this desk actually recruits for, or a generic sales-and-CS grab bag?
+→ Is anything you place *missing*? A role not in the net is a role you'll never see hiring signals for.
+
+**Questions to ask:**
+→ "Of these roles, which do you actually place — and which are just noise? I'd trim the net to the ones you fill."
+→ "You've got [broad title] in here — do you place those, or should we drop it to cut the volume?"
+
+### Target titles (the buyers)
+
+These are the **people you sell to** — decision-makers at the companies, NOT the roles you place. They drive who gets enriched as a buyer, not what gets scraped. Keep them entirely separate from the roles above.
 
 **What to check:**
 → Are these the actual decision-makers who control budget, or just influencers?

@@ -90,6 +90,25 @@ Each is consultative by design: it **reviews your setup, flags what's weak, sugg
 
 ---
 
+## 🎯 Tune a Desk — the alignment workflow
+
+A **Desk** is an activated target market: Kolvera watches job boards for companies hiring your roles and surfaces them as "New Leads". When that queue fills with off-target companies, it's almost always the desk's *definition* that's too broad — not the engine. The `icp-review` skill runs this whole sequence; the order matters, because you fix the definition before the filters.
+
+Say **"review my desk"** or **"why is my desk noisy?"** and Claude will:
+
+1. **Diagnose first** — `diagnose_desk` reads the live queue and reports what's dragging it off-target (accepted sectors, unsized companies, and buyer-titles that leaked into your scrape net), each with a fix. Baseline before changing anything.
+2. **Roles you recruit for** — the job titles you *place*, and the widest lever on noise. Broad or junior titles (e.g. "SDR", a generic "Manager") match at nearly every company. Keep them specialist. *These are separate from…*
+3. **Buyer titles** — the people you *sell to* (Head of…, VP…, Founder). Kept apart from the roles above — a buyer title sitting in your scrape net is the single biggest noise source, because it matches everywhere. Claude flags any overlap.
+4. **Sectors** — the industries you accept, plus the ones to **veto** (recruitment agencies, consultancies, and other off-target sectors that share a keyword with you).
+5. **Company sizes** — sets the ceiling that filters out enterprises far bigger than your sweet spot. No size range = mega-caps slip through.
+6. **Locations** — the geography you can actually deliver to.
+7. **Re-diagnose** — confirm the flags cleared and the queue tightened.
+8. **Clean what's left** — leads from the old, broad settings linger; Claude dismisses the junk and routes anything that belongs to a *different* desk over to it.
+
+The point: **roles ≠ buyers, and both are separate from sectors and sizes.** Getting those four right — in that order — is what makes a desk surface the right companies and nothing else.
+
+---
+
 ## 💡 Get better results
 
 Add the **Kolvera MCP Prompt Guide PDF** to your Claude **Project knowledge** (next to the skills). It gives Claude the full tool reference (every Kolvera tool), polling timings, and known workarounds, so workflows run more reliably.
