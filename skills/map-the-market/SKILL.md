@@ -129,7 +129,7 @@ Show the user the full ICP, then walk through every field with specific observat
 
 Discover companies that match the ICP.
 
-**Initial run (3 credits):**
+**Initial run (6 credits):**
 → `trigger_deep_research` against the ICP ID
 → Poll `get_research_report` with `fields: status` after ~60 seconds, then every 30 seconds
 → Switch to `fields: full` once status shows complete
@@ -140,7 +140,7 @@ Discover companies that match the ICP.
 → Flag noise: "I'm seeing [X] companies that look like they might be too large/small/wrong industry for your target. Should I exclude these types from future runs?"
 → Suggest ICP refinements based on what came back: "The research pulled a lot of [industry] companies but very few [other industry]. If [other industry] is important to you, we could tighten the ICP description to weight it more heavily. Or it might just be a smaller market than expected."
 
-**Expand until diminishing returns (2 credits each):**
+**Expand until diminishing returns (4 credits each):**
 → `expand_deep_research` against the ICP ID
 → Track the trend and show it to the user after each run
 
@@ -149,7 +149,7 @@ Discover companies that match the ICP.
 → **Broad ICPs (15+ industries):** Stop at 3+ consecutive runs at or below 4 new companies with no upward spike
 → **Budget cap:** Never exceed the agreed credit budget without user approval
 
-**APPROVAL GATE 2** — "We've run [X] rounds of research and found [Y] total companies. The last two runs added [Z] and [W] new companies — the returns are tapering off. I'd recommend stopping here and moving to job scraping. Or we can do one more expand for 2 credits if you think there's more to find. What would you prefer?"
+**APPROVAL GATE 2** — "We've run [X] rounds of research and found [Y] total companies. The last two runs added [Z] and [W] new companies — the returns are tapering off. I'd recommend stopping here and moving to job scraping. Or we can do one more expand for 4 credits if you think there's more to find. What would you prefer?"
 
 ---
 

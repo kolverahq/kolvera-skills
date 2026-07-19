@@ -82,6 +82,7 @@ Each is consultative by design: it **reviews your setup, flags what's weak, sugg
 | **rmp-campaign** | *"Take [name] to market"* | Take one person to market end-to-end: build their profile → match companies → find buyers → launch the campaign. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/rmp-campaign.zip) |
 | **campaign-health** | *"Check my campaigns"* | Fast health check — flags bounces, low opens, inbox problems, dead campaigns. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/campaign-health.zip) |
 | **morning-briefing** | *"Morning briefing"* | Daily digest: meetings, replies, follow-ups, pipeline alerts, top 3 priorities. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/morning-briefing.zip) |
+| **work-the-desk** | *"Work my desk"* | The daily desk loop: review what the auto-router filed overnight, triage New Leads, clear the Action Inbox, act on the hottest hiring signal. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/work-the-desk.zip) |
 | **weekly-review** | *"Weekly review"* | End-of-week synthesis: what moved, what's hot, where to focus next week. | [⬇ Download](https://github.com/kolverahq/kolvera-skills/releases/latest/download/weekly-review.zip) |
 
 > **➕ Add the behaviour layer:** [⬇ **guidelines.zip**](https://github.com/kolverahq/kolvera-skills/releases/latest/download/guidelines.zip) — makes every skill consultative (review → suggest → confirm → run). Upload it once.
@@ -127,12 +128,12 @@ Most actions are free. Credits are only spent on data and AI generation, and **e
 | What | Cost |
 |---|---|
 | Generate an ICP (AI) | 2 credits |
-| Deep Research — first run | 3 credits |
-| Deep Research — expand | 2 credits |
+| Deep Research — first run | 6 credits |
+| Deep Research — expand | 4 credits |
 | Contact found *with verified email* | 2 credits |
 | Phone number found | 6 cr direct dial · 2 cr company line · 0 cr if already on file or BYOK |
 | Research one company | 1 credit |
-| Market / Role Intelligence report | 10 credits |
+| Market / Role Intelligence report | 15 credits |
 | Job board scraping | Uses your monthly scrape allowance (not credits) |
 | Sorting, hot lists, campaigns, reviews, pipeline | Free |
 
@@ -163,7 +164,7 @@ Three end-to-end runs you can copy. Each line in a code block is something you *
    ```
    Generate an ICP titled "AU HR Tech — Decision Makers" targeting HR tech companies in Australia with 20-500 employees, using my primary business context. Show me the full profile.
    ```
-3. **Discover companies** (Deep Research, 3 cr; each expand 2 cr):
+3. **Discover companies** (Deep Research, 6 cr; each expand 4 cr):
    ```
    Run Deep Research against my ICP, then show the results summary and company count.
    ```

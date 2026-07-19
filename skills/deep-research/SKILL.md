@@ -7,7 +7,7 @@ description: Run Kolvera Deep Research discovery loops against an ICP with credi
 
 Run AI-powered company discovery against an ICP. Each run finds new companies that match the profile. Expand iteratively until diminishing returns, tracking the trend and respecting credit budgets.
 
-**Credit cost:** 3 credits for initial run, 2 credits per expand.
+**Credit cost:** 6 credits for initial run, 4 credits per expand.
 **Target:** 50-100+ companies discovered, depending on market breadth.
 
 ## Consultative approach
@@ -24,7 +24,7 @@ Pull the ICP: `get_icp_profile`. Confirm:
 
 Check existing research: `list_research_reports` filtered by ICP. If prior research exists, show it and ask whether to expand from there or start fresh.
 
-## Step 1 — Initial run (3 credits)
+## Step 1 — Initial run (6 credits)
 
 → `trigger_deep_research` with the ICP ID
 → Optionally set precision: `strict` (tighter, higher hit-rate), `balanced` (default), or `broad` (wider net, adjacent verticals)
@@ -43,7 +43,7 @@ Report to the user:
 → "Only [X] companies came back in [expected industry]. This could mean the market is smaller than expected, or the ICP description needs to weight this industry more heavily. Should we adjust?"
 → "Based on these results, I'd suggest [tightening/broadening] the ICP's [specific field] before the next expand — it would improve the quality of what comes back."
 
-## Step 2 — Expand loops (2 credits each)
+## Step 2 — Expand loops (4 credits each)
 
 → `expand_deep_research` with the ICP ID
 → Same polling pattern: `fields: status` until complete, then `fields: full`
@@ -63,7 +63,7 @@ Report to the user:
 
 **Budget cap:**
 → Never exceed the agreed credit budget without explicit user approval.
-→ Prefer `expand_deep_research` (2 credits) over `trigger_deep_research` (3 credits) for subsequent runs.
+→ Prefer `expand_deep_research` (4 credits) over `trigger_deep_research` (6 credits) for subsequent runs.
 
 ## Step 3 — Review results
 

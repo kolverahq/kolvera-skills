@@ -8,7 +8,7 @@ description: Take a screened candidate to market using Kolvera's Reverse Market 
 Take a screened candidate to market. The RMP (Reverse Market Profile) is the atomic unit of candidate-led BD — one candidate, one profile, one or more campaigns.
 
 **Target time:** 30-45 minutes with approval gates.
-**Credit cost:** RMP generation is free if manual, or costs credits if AI-generated. Contact enrichment: 2 credits per contact found with verified email. Intelligence reports: 10 credits each.
+**Credit cost:** RMP generation is free if manual, or costs credits if AI-generated. Contact enrichment: 2 credits per contact found with verified email. Intelligence reports: 15 credits each.
 
 ## Core Principle
 
@@ -50,7 +50,7 @@ Not every screened candidate gets an RMP. The gate:
 → Disqualifiers: what would waste everyone's time?
 
 **Generate a Role Intelligence Report** if one does not exist for this role family:
-→ `generate_role_intel_report` (10 credits, async)
+→ `generate_role_intel_report` (15 credits, async)
 → One report per role family (e.g. one for Implementation, one for SE, one for CSM). Reuse across candidates.
 → The report URL goes in Step 1 of every campaign — value-add for the prospect.
 
