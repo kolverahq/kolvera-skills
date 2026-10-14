@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check or explicitly refresh each standalone skill's shared operations reference."""
+"""Check or explicitly refresh each standalone skill's shared references."""
 import argparse
 from pathlib import Path
 import sys
@@ -13,16 +13,22 @@ def sync(root: Path, write: bool = False) -> list[str]:
         data = canonical.read_bytes()
     except OSError as exc:
         raise ValidationError(f"{canonical}: cannot read canonical operations reference: {exc}") from exc
+    float_canonical = root / "contracts/float.md"
+    float_data = float_canonical.read_bytes() if float_canonical.exists() else None
     differences = []
     for folder in skill_dirs(root):
-        target = folder / "references/operations.md"
-        if target.is_symlink() or target.parent.is_symlink():
-            raise ValidationError(f"{target}: symlink not allowed")
-        if not target.is_file() or target.read_bytes() != data:
-            differences.append(str(target))
-            if write:
-                target.parent.mkdir(exist_ok=True)
-                target.write_bytes(data)
+        references = {"operations.md": data}
+        if float_data is not None and folder.name in {"campaign-build", "rmp-campaign"}:
+            references["float.md"] = float_data
+        for name, reference_data in references.items():
+            target = folder / "references" / name
+            if target.is_symlink() or target.parent.is_symlink():
+                raise ValidationError(f"{target}: symlink not allowed")
+            if not target.is_file() or target.read_bytes() != reference_data:
+                differences.append(str(target))
+                if write:
+                    target.parent.mkdir(exist_ok=True)
+                    target.write_bytes(reference_data)
     return differences
 
 
@@ -39,9 +45,9 @@ def main() -> int:
         print(str(exc), file=sys.stderr)
         return 1
     if changed and not args.write:
-        print("Shared operations references differ; run scripts/sync_references.py --write:\n" + "\n".join(changed), file=sys.stderr)
+        print("Shared references differ; run scripts/sync_references.py --write:\n" + "\n".join(changed), file=sys.stderr)
         return 1
-    print(f"{'Updated' if args.write else 'Checked'} shared operations references; {len(changed)} differences.")
+    print(f"{'Updated' if args.write else 'Checked'} shared references; {len(changed)} differences.")
     return 0
 
 

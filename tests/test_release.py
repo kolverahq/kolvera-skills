@@ -171,6 +171,50 @@ class ReleaseTests(unittest.TestCase):
         sync(self.root, write=True)
         validate_source(self.root)
 
+    def test_float_reference_drift_fails_check_and_source_then_explicit_write_syncs(self):
+        old_folder = self.folder
+        self.folder = self.root / "skills/campaign-build"
+        old_folder.rename(self.folder)
+        self.skill = self.folder / "SKILL.md"
+        text = self.skill.read_text(encoding="utf-8").replace("name: example", "name: campaign-build")
+        text += "\n[Float contract](references/float.md)\n"
+        self.skill.write_text(text, encoding="utf-8")
+        rmp = self.root / "skills/rmp-campaign"
+        rmp.mkdir()
+        (rmp / "SKILL.md").write_text(text.replace("name: campaign-build", "name: rmp-campaign"), encoding="utf-8")
+        sync(self.root, write=True)  # Operations only; optional Float canonical absent.
+        canonical = self.root / "contracts/float.md"
+        canonical.write_bytes(b"# Float\r\n\r\nReviewed authority, privacy and launch preview.\r\n")
+        targets = [self.folder / "references/float.md", rmp / "references/float.md"]
+        self.assertEqual(sync(self.root), [str(target) for target in targets])
+        self.assertTrue(all(not target.exists() for target in targets))
+        self.assert_invalid("shared Float drift")
+        sync(self.root, write=True)
+        validate_source(self.root)
+        for target in targets:
+            with self.subTest(skill=target.parent.parent.name):
+                target.write_bytes(b"stale")
+                command = [sys.executable, str(REPO / "scripts/sync_references.py"), "--root", str(self.root)]
+                for mode in ([], ["--check"]):
+                    check = subprocess.run(command + mode, capture_output=True, text=True)
+                    self.assertEqual(check.returncode, 1, check.stderr)
+                    self.assertIn(str(target), check.stderr)
+                    self.assertEqual(target.read_bytes(), b"stale")
+                self.assert_invalid("shared Float drift")
+                written = subprocess.run(command + ["--write"], capture_output=True, text=True)
+                self.assertEqual(written.returncode, 0, written.stderr)
+                self.assertEqual(target.read_bytes(), canonical.read_bytes())
+                validate_source(self.root)
+
+    def test_optional_float_contract_does_not_create_campaigns_or_touch_other_skills(self):
+        (self.root / "contracts/float.md").write_text("# Float guidance\n", encoding="utf-8")
+        self.assertEqual(sync(self.root), [])
+        self.assertEqual(sync(self.root, write=True), [])
+        self.assertFalse((self.folder / "references/float.md").exists())
+        self.assertFalse((self.root / "skills/campaign-build").exists())
+        self.assertFalse((self.root / "skills/rmp-campaign").exists())
+        validate_source(self.root)
+
     def test_price_snapshot_mismatch_rejected(self):
         canonical = self.root / "contracts/operations.md"
         canonical.write_text(canonical.read_text(encoding="utf-8").replace("| 23 |", "| 15 |"), encoding="utf-8")

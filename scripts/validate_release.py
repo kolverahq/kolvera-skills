@@ -197,6 +197,13 @@ def validate_source(root: Path, expected_count: int | None = None) -> tuple[dict
     except (OSError, UnicodeError) as exc:
         canonical_bytes = None
         errors.append(f"{canonical}: cannot read shared operations contract: {exc}")
+    float_canonical = root / "contracts/float.md"
+    float_bytes = None
+    if float_canonical.exists():
+        try:
+            float_bytes = float_canonical.read_bytes()
+        except OSError as exc:
+            errors.append(f"{float_canonical}: cannot read shared Float contract: {exc}")
     names = set()
     for folder in folders:
         skill = folder / "SKILL.md"
@@ -226,6 +233,10 @@ def validate_source(root: Path, expected_count: int | None = None) -> tuple[dict
             reference = folder / "references/operations.md"
             if not reference.is_file() or reference.read_bytes() != canonical_bytes:
                 errors.append(f"{reference}: shared operations drift; run scripts/sync_references.py --write")
+            if float_bytes is not None and folder.name in {"campaign-build", "rmp-campaign"}:
+                float_reference = folder / "references/float.md"
+                if not float_reference.is_file() or float_reference.read_bytes() != float_bytes:
+                    errors.append(f"{float_reference}: shared Float drift; run scripts/sync_references.py --write")
             for path in payload_files(folder):
                 if path.suffix.lower() == ".md":
                     errors.extend(check_document(path.read_text(encoding="utf-8-sig"), path, folder, contract["tools"]))
