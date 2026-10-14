@@ -14,7 +14,7 @@ Read [Operations contract](references/operations.md). This is an orchestration w
 Read existing business contexts and desks before creating duplicates: `list_business_contexts`, `list_icp_profiles`, `get_icp_profile`.
 Confirm geography, target industries, size bands, recruited roles (if recruitment), buyer titles, evidence-backed pain/proof and exclusions. Roles being recruited and people buying the service are different filters.
 Use `create_business_context` or `create_business_context_from_website` only when needed; changing the primary context affects other workflows and requires scope covering it.
-Use `generate_icp_profile` or `create_icp_profile`; review output before activation. Generation is a paid action; inspect current cost. Apply authorised corrections with `update_icp_profile` and read back. Do not activate ongoing monitoring unless included in user scope.
+Review the proposed criteria before `generate_icp_profile` or `create_icp_profile`. Creation can immediately produce an activated live desk, so obtain scope for that effect first; do not promise a draft/review stage the tool does not provide. Generation is paid; inspect current cost. Read returned desk status and apply authorised corrections with `update_icp_profile`, then read back. Do not enable additional ongoing monitoring outside user scope.
 
 ## 2. Wiring and discovery
 Use `diagnose_desk` for targeting noise and `activate_desk` only when ongoing desk operation is intended.
