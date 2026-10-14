@@ -1,9 +1,14 @@
 ---
 name: deal-pipeline
-description: Review and manage the B2B sales pipeline in Kolvera. Track prospect stages, flag stale opportunities, update outreach stages, surface next actions. Trigger when the user says "review my pipeline", "deal review", "pipeline status", "what's in my pipeline", "stale deals", or any variation. B2B sales vertical skill.
+description: Review Kolvera sales prospects, client relationships and supported activity evidence; update authorised stages and next actions.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Deal Pipeline
+
+Read [Operations contract](references/operations.md) before acting.
 
 Review the sales pipeline, flag stale opportunities, and surface the next best actions.
 
@@ -30,7 +35,7 @@ Flag prospects that have not moved stages within expected timeframes:
 → **Meeting booked 5+ days ago** with no update — confirm meeting happened, update stage
 → **Lost** — review reason. Anything worth re-engaging in 30-60 days?
 
-Check `prospect_next_action_date` on each contact. Flag any overdue.
+Check `prospect_next_action_date` on each contact. Flag any overdue. Stage-age claims require dated stage evidence; updated_at is not proof when a stage changed. Mark unknown age explicitly.
 
 ## Step 3 — Review active campaigns
 

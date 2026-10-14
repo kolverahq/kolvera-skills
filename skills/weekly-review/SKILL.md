@@ -1,57 +1,30 @@
 ---
 name: weekly-review
-description: End-of-week synthesis. Reviews the week's pipeline activity, campaign performance, hot leads, and sets priorities for next week. Trigger when the user says "weekly review", "week in review", "Friday review", "what happened this week", "weekly synthesis", or any variation.
+description: Summarise Kolvera pipeline and campaign evidence with explicit period coverage, lifetime totals and next-week actions.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Weekly Review
 
-A structured end-of-week review. What happened, what moved, what needs attention next week.
+Read [Operations contract](references/operations.md). Confirm week boundaries and timezone; read-only review does not authorise campaign changes or sending.
 
-**Credit cost:** Free.
+## Campaigns
+Use `list_campaigns` and `get_campaign_stats`, including variant breakdown where relevant. These are lifetime totals, not date-filtered weekly figures.
+Use supported timestamped activity or validated prior snapshots for period counts/deltas. Explain missing coverage, changed definitions and denominator differences. If no period evidence exists, report current totals and explicitly say weekly change is unavailable.
+Consider actual replies, bounces and inbox capacity. Machine opens, privacy tools, disabled tracking and small samples limit open-rate conclusions.
 
-## Section 1 — Campaign performance (this week)
+## Pipeline and people
+Use `search_pipeline_jobs` with supported desk/date filters. Clarify created/imported date versus source posting date; do not count them interchangeably.
+Use supported contact/client-job/shortlist/history tools to show dated movement and next actions. Do not infer stage changes from current state alone or claim last week's comparison without a retained baseline.
+Read `get_icp_profile` for current desk counts and `get_credit_balance` for balance. Balance change is not weekly spend without transaction evidence (resets, top-ups and refunds can change it).
 
-→ `list_campaigns` — all active campaigns
-→ `get_campaign_stats` for each — this week's numbers:
-  - Total sent, opened, replied, bounced
-  - Open rate and reply rate trends (improving or declining?)
-  - Best-performing campaign and worst-performing campaign
-  - Any campaigns that should be paused, expanded, or refreshed
+## Output
+- Week/timezone and sources covered.
+- Verified weekly activity; separately labelled lifetime/current totals.
+- Warm replies, overdue actions and candidate/client decisions needing attention.
+- Evidence gaps and unresolved jobs.
+- Three concrete priorities for next week, with owner/date where known.
 
-## Section 2 — Pipeline activity
-
-→ `search_pipeline_jobs` — new jobs posted this week matching the ICP
-→ Count: how many new pipeline matches vs last week?
-→ Any shortlisted jobs that need follow-up?
-→ Any companies that appeared across multiple job boards (high-intent signal)?
-
-## Section 3 — Contact and prospect movement
-
-→ New contacts added this week (from enrichment, scraping, manual)
-→ Prospects that moved stages (identified → replied → meeting booked)
-→ Candidates that moved stages (if applicable)
-→ Hot list changes: any S-tier prospects added?
-
-## Section 4 — Hot leads
-
-→ Prospects who replied positively this week
-→ Prospects with active hiring signals who have not been contacted
-→ Candidates with competing processes or deadlines next week
-→ Any warm referrals received
-
-## Section 5 — ICP and market health
-
-→ `get_icp_profile` — current company count and prospect count
-→ Any ICPs that need refreshing (stale research, outdated scrape configs)?
-→ Credit balance: `get_credit_balance`
-→ Scrape allowance usage
-
-## Section 6 — Next week's priorities
-
-Based on everything above, recommend:
-→ Top 3 actions for Monday
-→ Any campaigns to adjust
-→ Any prospects to follow up with
-→ Any sourcing or enrichment work to queue
-
-Keep the output structured and actionable. No fluff.
+Recommend changes; execute only those already authorised. Preserve suppression and privacy when sharing the review.

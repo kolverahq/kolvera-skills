@@ -1,6 +1,9 @@
 ---
 name: icp-review
-description: Audit and tighten an existing Kolvera ICP or Desk. Runs the diagnose_desk health check to spot discovery-queue noise (over-broad accepted sectors, unsized companies), then reviews every field — target titles, industries, exclusions, company sizes, pain points, LinkedIn keywords — with specific suggestions. Identifies discrepancies, flags grey areas, recommends fixes. Never changes anything without asking. Trigger when the user says "review my ICP", "audit my ICP", "clean my ICP", "tighten my ICP", "check ICP health", "why is my desk noisy", "too much junk in my desk", "my discovery leads are off", or any variation of reviewing and improving a target market or desk. Maps to MCP Prompt Guide Phase 2.
+description: Diagnose and refine a Kolvera desk's roles, buyers, industries, geography and size rules; audit its company map with approval.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # ICP / Desk Review
@@ -21,7 +24,7 @@ Before eyeballing anything, run `diagnose_desk` with the ICP/Desk ID. It answers
 
 **Read the flags out loud to the user and act on them — they are the fastest wins. Address them in this order (definition before filters):**
 
-→ **BUYER-TITLE LEAK (do this first — the widest lever).** *"3 buyer/leadership titles are in your scrape net — Head of Customer Success, VP Sales…"* → these are titles you SELL TO (buyers), not roles you PLACE, and they match at almost every company. This is usually the single biggest noise source. The desk has **two separate lists people conflate**: the *roles you recruit for* (the scrape keywords — job titles you place) and *buyer titles* (`target_titles` — who you sell to). A buyer title must live only in `target_titles`. Offer to remove the leaked ones from the scrape net via `update_scrape_config` (keywords) and keep `recruited_roles` in sync via `update_icp_profile` — leaving the buyer titles in `target_titles` untouched. While here, also sanity-check the roles: broad or junior titles (SDR, BDR, generic "Manager", plain "Account Executive") match everywhere — keep the net to the specialist roles the desk actually places.
+Treat buyer_titles_in_scrape_net as a diagnostic hint, not an automatic removal rule. Read the actual roles this desk places: Head/VP/Chief/Director can be valid executive-search roles and valid buyer titles at the same time. Remove a keyword only when it is outside the approved recruited-role brief and evidence shows noise; preserve legitimate overlap. Review proposed full keyword list with the user, keep recruited_roles in sync and read back updates.
 
 → *"'Recruitment & Staffing' is an accepted sector contributing 47 leads"* → almost never a real target for a product/software desk. Offer to add it (and "IT Services & Consulting", "Professional Services" if flagged) to `excluded_sectors`. This vetoes those companies at the gate, permanently, including future reposts.
 
@@ -37,14 +40,14 @@ After you apply the flag fixes (Step 4), re-run `diagnose_desk` to confirm the q
 
 ## Consultative approach
 
-This skill is entirely consultative. Claude should:
+This skill is entirely consultative. The assistant should:
 → Pull the ICP and walk through every field out loud
 → Flag anything that looks too broad, too narrow, missing, or inconsistent
 → Make specific suggestions with reasoning (not just "this could be better")
 → Ask targeted questions where the right answer depends on the user's market knowledge
 → Only apply changes after the user confirms each one
 
-Also read GUIDELINES.md in this repo for the full consultative behaviour pattern.
+Read the bundled [Operations contract](references/operations.md) for budgets, job receipts and action authority.
 
 ## Step 1 — Pull the ICP and business context
 
@@ -63,7 +66,7 @@ Also pull the business context: `list_business_contexts` and review the primary.
 These are the **job titles you place** — they drive job-board monitoring, so they're the first thing that shapes your discovery queue. (Editable as `recruited_roles` on the profile and `keywords` on the linked scrape config — keep the two in sync.)
 
 **What to check:**
-→ Any **buyer/leadership titles** in here (Head of…, VP…, Chief…, Director, Founder)? Those belong in Target titles, NOT here — they match at nearly every company and flood the queue. `diagnose_desk` flags these as `buyer_titles_in_scrape_net`; this is the #1 noise fix.
+Leadership titles can belong in both recruited_roles and target_titles when the desk places those roles. Compare with actual assignments; diagnose noise before proposing removal.
 → Any **broad or junior titles** that match everywhere? SDR, BDR, generic "Manager", plain "Account Executive" appear at almost every company — keep them only if you genuinely place them, and expect volume if you do.
 → Are these the specialist roles this desk actually recruits for, or a generic sales-and-CS grab bag?
 → Is anything you place *missing*? A role not in the net is a role you'll never see hiring signals for.
@@ -177,7 +180,7 @@ Present a clear summary:
 
 After the user confirms each change, apply via `update_icp_profile`.
 
-**Important:** Apply changes in batches of 2-3 fields per call. `update_icp_profile` can time out on large updates.
+Read back authorised updates. After an uncertain response, compare saved fields before retrying; do not treat old timeout recipes as universal constraints.
 
 ## Step 5 — Suggest next actions
 
@@ -192,7 +195,7 @@ Based on the review:
 The queue fixes stop NEW noise; companies mapped under the old settings are still on the desk. A real audit (Jul 2026) found 33-67% of mapped companies on long-running desks were wrong-vertical or invalid.
 
 1. `list_icp_companies` for the desk. Judge every company against the desk's `who_fits` / vertical — name + industry + notes. Be strict: borderline ≠ valid.
-2. Bucket: **valid** (stays) / **wrong vertical** (belongs on a different desk) / **invalid** (not a software product co, global giant far over the size band, duplicate) / **unsure**.
+2. Bucket: **valid** (stays) / **wrong vertical** (belongs on a different desk) / **invalid** (outside this desk's approved industry/size/geography rules, or a verified duplicate) / **unsure**.
 3. `research_company` (1 cr each — confirm spend first) on the unsures, then re-bucket on the findings. Watch for: no local operations, services-not-product, acquired/defunct, misidentified records.
 4. Execute: `bulk_unlink_companies_from_icp` for invalid; `move_companies_between_icps` for wrong-vertical (keeps the company, files it right — prospects move with it).
 5. **Never remove a company with live BD state.** Check `bd_status` — a reply, meeting, or active sequence means you flag it to the user and leave it. Removal there is always a human decision.
@@ -201,4 +204,4 @@ The queue fixes stop NEW noise; companies mapped under the old settings are stil
 ## Known issues
 
 → ICP prospect count may differ between UI and API. Pull the ICP directly to verify.
-→ `update_icp_profile` can time out on large updates. Split into multiple calls if needed.
+Diagnose returned update errors and compare saved fields before retry; preserve evidence of the intended profile.

@@ -1,6 +1,9 @@
 ---
 name: hot-list-build
-description: Segment ICP prospects into tiered hot lists ready for campaign enrollment. Organises by segment so each campaign speaks to one audience with one message. Trigger when the user says "build hot lists", "segment my prospects", "tier my contacts", "organise for campaigns", or any variation. Maps to MCP Prompt Guide Phase 8.
+description: Segment reviewed Kolvera desk prospects into S/A/B hot lists using fit, current signals and contact quality.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Hot List Build
@@ -11,7 +14,7 @@ Segment prospects into campaign-ready hot lists. Each list should be tight enoug
 
 ## Consultative approach
 
-Claude should suggest segmentation strategies based on what it sees in the data — not just ask the user how to split. After building lists, Claude should flag contacts that might be in the wrong segment and suggest tier adjustments with reasoning. Also read GUIDELINES.md in this repo for the full consultative behaviour pattern.
+The assistant should suggest segmentation strategies based on what it sees in the data — not just ask the user how to split. After building lists, The assistant should flag contacts that might be in the wrong segment and suggest tier adjustments with reasoning. Read the bundled [Operations contract](references/operations.md) for budgets, job receipts and action authority.
 
 ## Step 1 — Review available prospects
 

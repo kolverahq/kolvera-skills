@@ -1,6 +1,9 @@
 ---
 name: prospect-sort
-description: Sort newly enriched or scraped contacts into prospects (decision-makers to sell to), candidates (people to place — recruitment), and skip (irrelevant). Links sorted contacts to the correct ICP, Reverse Market Profile (RMP), or hot list profiles. Trigger when the user says "sort my contacts", "sort new contacts", "classify contacts", "triage my contacts", or any variation. Maps to MCP Prompt Guide Phase 7.
+description: Classify a reviewed Kolvera contact batch as buyers, candidates or irrelevant; link the correct desk, pool or hot list.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Prospect Sort
@@ -11,12 +14,12 @@ Classify newly arrived contacts — from batch enrichment, Chrome extension scra
 
 ## Consultative approach
 
-Claude should not just silently sort — it should explain why each contact was classified the way it was, flag ambiguous cases for the user to decide, and suggest improvements to the scraping or enrichment strategy based on what came back. Also read GUIDELINES.md in this repo for the full consultative behaviour pattern.
+The assistant should not just silently sort — it should explain why each contact was classified the way it was, flag ambiguous cases for the user to decide, and suggest improvements to the scraping or enrichment strategy based on what came back. Read the bundled [Operations contract](references/operations.md) for budgets, job receipts and action authority.
 
 ## Step 1 — Pull new contacts
 
 → `search_contacts` sorted by created date to pull the most recent batch
-→ Ask the user how many to process, or default to the last 50
+Bound intake using supported provenance/filtering. Newest 50 records are a proposed selection, not proof of a common import or owner.
 
 ## Step 2 — Classify each contact
 
@@ -32,9 +35,9 @@ Sort into three buckets based on title and role:
 
 **SKIP** — Irrelevant
 → Wrong function (e.g. CTO when selling a non-technical service)
-→ Individual contributors (Account Executives, SDRs — not buyers)
+An individual contributor may be a candidate, influencer or buyer depending on the brief; classify by actual purpose.
 → Scraping artefacts (junk data like "Join [Company]", "Latest News")
-→ HR/TA titles (facilitators, not decision-makers for most sales)
+Judge HR/TA and technical leaders against this desk's actual buying/hiring structure; none is universally irrelevant.
 
 Present the sorted list to the user with contact IDs and reasoning.
 
@@ -46,12 +49,12 @@ Present the sorted list to the user with contact IDs and reasoning.
 
 **Candidates (recruitment):**
 → `bulk_link_candidates_to_reverse_market_profile` — takes a links list where each item is `{contact_id, reverse_market_profile_id}`. Cap 200 per call — keep batches ≤100 as 200 can time out.
-→ Check `list_reverse_market_profiles` first. If no RMP exists for the role family, `create_reverse_market_profile` with `linked_icp_id`.
+Check `list_reverse_market_profiles` first. If no suitable profile exists, request the supported app creation step; current MCP does not expose initial creation. Verify the resulting profile/desk before linking.
 → Use desk-prefix naming (e.g. "Perm — Implementation Consultant")
 
 **Skip:**
 → No action needed. Optionally note why they were skipped for the user's reference.
-→ Delete obvious junk data: `delete_contact` on scraping artefacts.
+→ Only with explicit delete authority, delete verified junk data: `delete_contact` on scraping artefacts.
 
 ## Step 4 — Update candidate records (recruitment)
 
