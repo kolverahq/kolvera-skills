@@ -1,58 +1,87 @@
 #!/usr/bin/env python3
-"""Build per-skill release zips for kolvera-skills.
+"""Build deterministic, self-contained skill ZIPs and an offline verification manifest.
 
-Each skill is a folder containing a SKILL.md. For Claude's "upload a skill"
-flow the zip must have the skill FOLDER at its root (e.g. map-the-market/SKILL.md).
-
-Produces, in dist/:
-  <skill>.zip         one per skill folder (folder at zip root)
-  kolvera-skills-all.zip   bundle of every per-skill zip (unzip, then upload each)
-
-Run:  python build-release-zips.py
+Run: python build-release-zips.py [--root SOURCE] [--output DIRECTORY]
+Only immediate skills/* folders are packaged. Hidden files, caches and compiled
+Python payloads are excluded. No live Kolvera tools or credentials are used.
 """
-import os
-import zipfile
+from __future__ import annotations
+
+import argparse
+import json
 from pathlib import Path
+import sys
+import tempfile
+import zipfile
 
 ROOT = Path(__file__).resolve().parent
-DIST = ROOT / "dist"
+sys.path.insert(0, str(ROOT / "scripts"))
+from validate_release import ValidationError, digest, payload_files, validate_archives, validate_source
 
 
-def skill_dirs():
-    for skill_md in ROOT.rglob("SKILL.md"):
-        if "dist" in skill_md.parts:
-            continue
-        yield skill_md.parent
+def write_zip(out: Path, members: dict[str, bytes]) -> None:
+    with zipfile.ZipFile(out, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+        for name, data in sorted(members.items()):
+            info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+            info.create_system = 3
+            info.external_attr = 0o100644 << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            archive.writestr(info, data, compresslevel=9)
 
 
-def zip_folder(folder: Path, out: Path):
-    """Zip `folder` so its own name is the top-level entry in the archive."""
-    parent = folder.parent
-    with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
-        for f in sorted(folder.rglob("*")):
-            if f.is_file():
-                z.write(f, f.relative_to(parent).as_posix())
+def build(root: Path, output: Path, expected_count: int | None = None) -> list[Path]:
+    if output.is_symlink():
+        raise ValidationError("output directory must not be a symlink")
+    root, output = root.resolve(), output.resolve()
+    if output == root or output.is_relative_to(root / "skills") or output.is_relative_to(root / "contracts"):
+        raise ValidationError("output must not overwrite source root, skill folders or contracts")
+    contract, folders = validate_source(root, expected_count)
+    artifact_names = {f"{folder.name}.zip" for folder in folders} | {"kolvera-skills-all.zip"}
+    if output.exists():
+        stale = {p.name for p in output.glob("*.zip")} - artifact_names
+        if stale:
+            raise ValidationError(f"{output}: unexpected existing ZIPs {sorted(stale)}; use a clean output directory")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix="kolvera-skills-build-", dir=output.parent) as temporary:
+        staging = Path(temporary)
+        for folder in folders:
+            members = {f"{folder.name}/{path.relative_to(folder).as_posix()}": path.read_bytes() for path in payload_files(folder)}
+            write_zip(staging / f"{folder.name}.zip", members)
+        write_zip(staging / "kolvera-skills-all.zip", {f"{folder.name}.zip": (staging / f"{folder.name}.zip").read_bytes() for folder in folders})
+        manifest = {
+            "schema_version": 1,
+            "verified_at": contract["verified_at"],
+            "product_source_sha": contract["product_source_sha"],
+            "skills": [folder.name for folder in folders],
+            "artifacts": {name: {"sha256": digest((staging / name).read_bytes()), "size": (staging / name).stat().st_size} for name in sorted(artifact_names)},
+        }
+        manifest_bytes = (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode("utf-8")
+        (staging / "manifest.json").write_bytes(manifest_bytes)
+        checksums = "".join(f"{manifest['artifacts'][name]['sha256']}  {name}\n" for name in sorted(artifact_names))
+        checksums += f"{digest(manifest_bytes)}  manifest.json\n"
+        (staging / "CHECKSUMS.sha256").write_bytes(checksums.encode("utf-8"))
+        validate_archives(root, staging, contract, folders)
+        output.mkdir(exist_ok=True)
+        # Only named build artifacts are replaced, never unrelated files.
+        for source in sorted(staging.iterdir()):
+            source.replace(output / source.name)
+    return [output / name for name in sorted(artifact_names)]
 
 
-def main():
-    DIST.mkdir(exist_ok=True)
-    for f in DIST.glob("*.zip"):
-        f.unlink()
-
-    made = []
-    for d in sorted(skill_dirs()):
-        out = DIST / f"{d.name}.zip"
-        zip_folder(d, out)
-        made.append(out)
-        print(f"  {out.name}  ({out.stat().st_size:,} bytes)  <- {d.relative_to(ROOT).as_posix()}")
-
-    bundle = DIST / "kolvera-skills-all.zip"
-    with zipfile.ZipFile(bundle, "w", zipfile.ZIP_DEFLATED) as z:
-        for out in made:
-            z.write(out, out.name)
-    print(f"\n  {bundle.name}  ({bundle.stat().st_size:,} bytes)  <- {len(made)} skill zips")
-    print(f"\nDone. {len(made)} skills -> {DIST}")
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--root", type=Path, default=ROOT)
+    parser.add_argument("--output", type=Path, help="artifact directory (default: SOURCE/dist)")
+    parser.add_argument("--expected-count", type=int, help="optional release-specific skill count pin")
+    args = parser.parse_args()
+    try:
+        artifacts = build(args.root, args.output or args.root / "dist", args.expected_count)
+    except (OSError, ValidationError) as exc:
+        print(f"Build failed:\n{exc}", file=sys.stderr)
+        return 1
+    print(f"Built {len(artifacts) - 1} skill ZIPs, bundle, manifest and checksums in {artifacts[0].parent}.")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
