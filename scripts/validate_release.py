@@ -14,6 +14,11 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 IGNORED_DIRS = {"__pycache__", "node_modules", "cache"}
+TOOL_PREFIXES = frozenset(
+    "get list create update delete bulk batch find run trigger expand generate search "
+    "activate approve dismiss action enrol assign link unlink move diagnose analyze "
+    "verify set build ingest add stop review revise preview send withdraw".split()
+)
 UNSAFE_RULES = (
     (r"if a batch stalls.{0,30}retry in batches", "unsafe stalled-batch replay recipe"),
     (r"(?:run|start|use).{0,15}(?:a )?fresh chat", "unsafe fresh-chat retry workaround"),
@@ -131,12 +136,29 @@ def check_document(text: str, path: Path, folder: Path, tools: dict) -> list[str
     for name in sorted(set(re.findall(r"\bmcp__kolvera__([a-z][a-z0-9_]*)\b", text))):
         if name not in tools:
             errors.append(f"{label}: unsupported declared tool mcp__kolvera__{name}")
-    # Prose/backticked enums are not tool calls. Only explicit namespace declarations
-    # and parseable call examples whose function exists in the snapshot are checked.
+    # Exact standalone inline-code names with a conventional verb prefix are tool
+    # candidates. Schema parameter names are data, even when they start with a
+    # verb (send_start_hour, stop_on_reply). Ordinary prose and unprefixed enums
+    # remain outside this conservative scan; this is not live API validation.
+    field_names = {parameter for schema in tools.values()
+                   for kind in ("required", "optional") for parameter in schema[kind]}
+
+    def tool_like(name: str) -> bool:
+        prefix, separator, remainder = name.partition("_")
+        return bool(separator and remainder and prefix in TOOL_PREFIXES)
+
+    tokens = set(re.findall(r"(?<!`)`([a-z][a-z0-9_]+)`(?!`)", text))
+    for name in sorted(tokens - set(tools) - field_names):
+        if tool_like(name):
+            errors.append(f"{label}: unsupported logical tool token {name}")
+    # A call has stronger intent than an inline data token. Unknown tool-like
+    # calls fail even if their spelling happens to collide with a schema field.
     for match in re.finditer(r"\b([a-z][a-z0-9_]+)\(([^()\n]*)\)", text):
         name, args = match.groups()
         name = name.removeprefix("mcp__kolvera__")
         if name not in tools:
+            if tool_like(name):
+                errors.append(f"{label}: unsupported logical tool call {name}")
             continue
         try:
             call = ast.parse(f"{name}({args})", mode="eval").body

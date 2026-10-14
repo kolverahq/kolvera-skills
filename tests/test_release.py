@@ -94,6 +94,26 @@ class ReleaseTests(unittest.TestCase):
         self.append("\nCall `mcp__kolvera__send_campaign_without_approval`.\n")
         self.assert_invalid("unsupported declared tool.*send_campaign_without_approval")
 
+    def test_unknown_bare_backticked_tool_token_rejected(self):
+        self.append("\nUse `get_nonexistent_kolvera_thing`.\n")
+        self.assert_invalid("unsupported logical tool token get_nonexistent_kolvera_thing")
+
+    def test_unknown_bare_tool_call_rejected(self):
+        self.append("\nCall get_nonexistent_kolvera_thing(record_id=12).\n")
+        self.assert_invalid("unsupported logical tool call get_nonexistent_kolvera_thing")
+
+    def test_schema_field_names_and_unprefixed_enums_not_treated_as_tools(self):
+        self.contract["tools"]["create_campaign"]["optional"] += ["send_start_hour", "stop_on_reply", "review_revision"]
+        (self.root / "contracts/kolvera.json").write_text(json.dumps(self.contract), encoding="utf-8")
+        self.append("\nFields: `send_start_hour`, `stop_on_reply`, `review_revision`. Enums: `tips`, `float`, `private_draft`. Prose get_nonexistent_kolvera_thing is not a declared call.\n")
+        validate_source(self.root)
+
+    def test_calling_schema_field_as_tool_still_rejected(self):
+        self.contract["tools"]["create_campaign"]["optional"].append("send_start_hour")
+        (self.root / "contracts/kolvera.json").write_text(json.dumps(self.contract), encoding="utf-8")
+        self.append("\n`send_start_hour(record_id=12)`\n")
+        self.assert_invalid("unsupported logical tool call send_start_hour")
+
     def test_wrong_expand_identifier_rejected(self):
         self.append("\n`expand_deep_research(icp_id=12)`\n")
         self.assert_invalid("unsupported parameter icp_id")
