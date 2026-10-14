@@ -1,6 +1,6 @@
 # Public skills refresh — 14 October 2026
 
-Status: implemented; independent review and current-head CI/public release pending.
+Status: all 13 findings implemented and independently reviewed. Combined 32-test suite, 21-skill source/archive checks and shared-reference checks pass. Final PR CI and release receipts are recorded in GitHub PR #1 and the v1.5.0 release.
 
 ## Scope and evidence
 - Public repository base: 30bca2a5b4adb7b0425090764e478bf492d125bc.
@@ -32,4 +32,4 @@ Additional verified correction: retired/unavailable initial RMP creation tools r
 Independent work: validation builder GPT-6.1 Sol high; Zionic read-only workflow review GPT-6.1 Sol medium; critical reviewer GPT-6 Astra high. Lead GPT-6.1 Sol medium. No automatic model switch claimed.
 
 ## Independent review corrections
-Critical review identified and corrected legitimate executive-title overlap, generation-based Float mode selection, separate native preview/commit UUIDs, standalone Float reference, and offer_presented stage spelling. A dated offline fixture remains explicit; no claim of live client/account tests. Final correction verification, CI and publication evidence follow in the release receipt.
+Critical review identified and corrected legitimate executive-title overlap, generation-based Float mode selection, separate native preview/commit UUIDs, standalone Float reference, and offer_presented stage spelling. A dated offline fixture remains explicit; no claim of live client/account tests. Corrected content was independently re-reviewed without remaining content blockers. Combined 32 tests and source/archive/shared-reference checks passed; final PR CI/publication evidence belongs to the GitHub release receipt.
