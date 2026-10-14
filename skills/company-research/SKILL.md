@@ -1,9 +1,14 @@
 ---
 name: company-research
-description: Deep dive on a single target company using Kolvera AI research. Pulls company details, runs AI research, finds decision-maker contacts, checks hiring signals, and surfaces buying triggers. Trigger when the user says "research [company]", "tell me about [company]", "deep dive on [company]", "what do we know about [company]", or any variation. B2B sales vertical skill.
+description: Review a Kolvera company, enrich approved evidence gaps and identify relevant buyers and hiring signals.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Company Research
+
+Read [Operations contract](references/operations.md) before acting.
 
 Run a comprehensive research pass on a single target company. Pulls everything Kolvera knows, enriches gaps, and surfaces actionable intelligence.
 
@@ -72,5 +77,5 @@ Present to the user:
 
 ## Known issues
 
-→ `find_company_contacts` with `icp_id` may error if the website scraper returns zero results. Omit `icp_id`, link afterwards.
+Preserve intended desk linkage and job receipt. Diagnose the returned error; do not omit icp_id or start another paid run as a generic workaround.
 → Companies under 50 employees often return zero contacts from batch enrichment. Use manual creation + email enrichment.

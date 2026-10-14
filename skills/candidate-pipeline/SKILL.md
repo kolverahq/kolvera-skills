@@ -1,9 +1,14 @@
 ---
 name: candidate-pipeline
-description: Manage candidate stages, grades, notes, and next actions across Reverse Market Profile (RMP) profiles in Kolvera. Move candidates through the recruitment pipeline, update records after calls, track competing processes. Trigger when the user says "update candidate pipeline", "move [candidate] to [stage]", "update [candidate]", "candidate status", or any variation of managing the candidate pipeline. Recruitment vertical skill.
+description: Maintain Kolvera candidate stages, evidence-based screening notes and next actions; keep client-job outcomes separate.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Candidate Pipeline
+
+Read [Operations contract](references/operations.md) before acting.
 
 Manage candidates through the recruitment pipeline in Kolvera. Update stages, grades, notes, and next actions from chat.
 
@@ -15,7 +20,11 @@ Manage candidates through the recruitment pipeline in Kolvera. Update stages, gr
 
 `role_defined` → `target_companies_mapped` → `candidates_sourced` → `shortlisted` → `connection_sent` → `accepted` → `first_message_sent` → `reply_received` → `qualified_in_chat` → `call_requested` → `call_booked` → `call_completed` → `active` → `nurture` → `closed_rejected`
 
-**Client-side (client-job) stages are separate** — `submitted`, `client_interview`, `offered`, `placed` are NOT `candidate_stage` values. They live on the client-job pipeline and are tracked via `list_client_jobs` (which shows shortlist counts per stage and placement revenue). Do not try to set these as `candidate_stage` via `update_contact`.
+**Client-side (client-job) stages are separate** — `submitted`, `client_interview`, `offer_presented`, `placed` are NOT `candidate_stage` values. They live on the client-job pipeline and are tracked via `list_client_jobs` (which shows shortlist counts per stage and placement revenue). Do not try to set these as `candidate_stage` via `update_contact`.
+
+## Screen and assess
+
+For Kolvera-linked screening, read [Evidence-based screening](references/screening.md). Keep client-job shortlist and disclosure consent separate from candidate lifecycle.
 
 ## Update a candidate
 
@@ -61,6 +70,10 @@ Do not mix them. Use `candidate_notes` for screening data, call summaries, and p
 → Note the competing company and timeline in `candidate_notes`
 → Set `candidate_next_action_date` to the decision deadline
 → Flag urgency — speed may be critical
+
+**Client-job outcomes:**
+
+Use supported shortlist tools for submitted/client_interview/offer/placement; see the candidate-submission workflow. Do not record transmission or financial outcomes from intention alone.
 
 **Candidate placed:**
 → Mark the candidate placed on the client-job pipeline (`placed` is a client-job stage, tracked via `list_client_jobs` — not a `candidate_stage`)

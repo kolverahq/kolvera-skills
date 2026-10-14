@@ -1,6 +1,9 @@
 ---
 name: job-scrape
-description: Run job board scrapes on SEEK, LinkedIn, Indeed and Reed using Kolvera scrape configs. Includes quality gate analysis, pipeline filtering, and cross-referencing with ICPs. Trigger when the user says "scrape job boards", "run a scrape", "check who's hiring", "pull job postings", "find active roles", or any variation of running job board scrapes. Maps to MCP Prompt Guide Phases 4-5.
+description: Run approved Kolvera job-board configs, inspect async results and quality, and curate relevant pipeline jobs.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Job Board Scrape
@@ -11,7 +14,7 @@ Scrape job boards for live postings matching an ICP. Companies actively hiring a
 
 ## Consultative approach
 
-Before running a scrape, Claude should review the existing config (if any) and suggest keyword improvements. After scraping, Claude should analyse the quality gate results and recommend specific changes to the exclude list, keywords, or location filters. Also read GUIDELINES.md in this repo for the full consultative behaviour pattern.
+Before running a scrape, The assistant should review the existing config (if any) and suggest keyword improvements. After scraping, The assistant should analyse the quality gate results and recommend specific changes to the exclude list, keywords, or location filters. Read the bundled [Operations contract](references/operations.md) for budgets, job receipts and action authority.
 
 ## Step 1 — Set up the scrape config
 
@@ -30,8 +33,8 @@ Check for existing configs: `list_scrape_configs`. If one is aligned to the targ
 
 ## Step 2 — Run the scrapes
 
-→ Valid sources: `seek`, `indeed`, `linkedin`, `reed` (Reed = UK only)
-→ Run sources as separate calls (effectively parallel)
+Inspect supported sources and supplier health in the live tool. Common sources include seek, indeed, linkedin and reed; choose source/location for this market. Supplier failure is not permission for blind retries.
+Keep each source/config receipt separate; avoid launching a duplicate of an already-running config.
 → Use `run_saved_config` when a config already exists
 → Poll `get_scrape_progress` every ~90 seconds
 
@@ -70,5 +73,5 @@ Apply suggested excludes: `update_search_config_excludes` — only after user co
 
 ## Known issues
 
-→ `update_scrape_config` can time out when updating multiple fields. Workaround: one field per call.
+After an uncertain config update, read back saved fields before retrying. A client timeout is not proof the write failed.
 → Scrape config keyword updates are full overwrites — always pass the complete desired keyword list, not just additions.

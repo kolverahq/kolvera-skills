@@ -1,0 +1,1490 @@
+{
+  "verified_at": "2026-10-14",
+  "product_source_sha": "270642ad3f14bd368e28615d5f94c3df456ccc0b",
+  "prices": {
+    "deep_research": 6,
+    "deep_research_expand": 4,
+    "intel_report": 23,
+    "phone_enrichment": 2,
+    "phone_enrichment_company": 2,
+    "phone_cache_direct": 2,
+    "phone_cache_company": 1,
+    "phone_lusha_byok": 0
+  },
+  "tools": {
+    "action_new_leads": {
+      "required": [
+        "profile_id"
+      ],
+      "optional": [
+        "add",
+        "add_job_ids",
+        "dismiss",
+        "dismiss_job_ids",
+        "profile_type"
+      ]
+    },
+    "activate_campaign": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": [
+        "confirm"
+      ]
+    },
+    "activate_desk": {
+      "required": [
+        "icp_id"
+      ],
+      "optional": []
+    },
+    "add_client_job_shortlist_candidate": {
+      "required": [
+        "contact_id",
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id",
+        "notes",
+        "source"
+      ]
+    },
+    "add_to_hot_list": {
+      "required": [
+        "list_id",
+        "source_ids"
+      ],
+      "optional": [
+        "notes",
+        "source",
+        "source_type",
+        "status",
+        "tier"
+      ]
+    },
+    "analyze_scrape_quality": {
+      "required": [],
+      "optional": [
+        "scrape_config_id"
+      ]
+    },
+    "approve_client_job_role_brief": {
+      "required": [
+        "acknowledge_conflicts",
+        "acknowledge_coverage",
+        "brief_id",
+        "job_id",
+        "revision"
+      ],
+      "optional": []
+    },
+    "approve_pending_action": {
+      "required": [
+        "action_id"
+      ],
+      "optional": [
+        "edited_body"
+      ]
+    },
+    "archive_client_job": {
+      "required": [
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id"
+      ]
+    },
+    "assign_inbox_to_campaign": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": [
+        "inbox_id",
+        "inbox_ids"
+      ]
+    },
+    "batch_find_contacts": {
+      "required": [
+        "company_ids"
+      ],
+      "optional": [
+        "function",
+        "icp_id",
+        "max_per_company",
+        "seniority",
+        "titles"
+      ]
+    },
+    "build_target_hotlist": {
+      "required": [
+        "icp_id"
+      ],
+      "optional": [
+        "industry_filter",
+        "list_name",
+        "preset",
+        "tier_filter",
+        "title_filter",
+        "top_n"
+      ]
+    },
+    "bulk_find_emails": {
+      "required": [
+        "contact_ids"
+      ],
+      "optional": []
+    },
+    "bulk_find_phones": {
+      "required": [
+        "contact_ids"
+      ],
+      "optional": []
+    },
+    "bulk_link_candidates_to_reverse_market_profile": {
+      "required": [
+        "links"
+      ],
+      "optional": []
+    },
+    "bulk_link_companies_to_reverse_market_profile": {
+      "required": [
+        "links",
+        "reverse_market_profile_id"
+      ],
+      "optional": [
+        "default_tier"
+      ]
+    },
+    "bulk_unlink_companies_from_icp": {
+      "required": [
+        "company_ids",
+        "icp_id"
+      ],
+      "optional": [
+        "dry_run"
+      ]
+    },
+    "create_business_context": {
+      "required": [
+        "name"
+      ],
+      "optional": [
+        "buyers",
+        "competitive_alternative",
+        "content_language",
+        "edge",
+        "pricing",
+        "set_as_primary",
+        "voice",
+        "what",
+        "workflow"
+      ]
+    },
+    "create_business_context_from_website": {
+      "required": [
+        "name",
+        "url"
+      ],
+      "optional": [
+        "content_language",
+        "set_as_primary"
+      ]
+    },
+    "create_campaign": {
+      "required": [
+        "name"
+      ],
+      "optional": [
+        "business_context",
+        "candidate_id",
+        "daily_limit",
+        "framework",
+        "icp_id",
+        "language",
+        "reverse_market_profile_id",
+        "stop_on_reply",
+        "track_opens",
+        "variant_mode",
+        "vertical"
+      ]
+    },
+    "create_campaign_step": {
+      "required": [
+        "body",
+        "campaign_id",
+        "step_number"
+      ],
+      "optional": [
+        "channel",
+        "delay_days",
+        "subject",
+        "variant",
+        "wait_for"
+      ]
+    },
+    "create_client_job": {
+      "required": [
+        "company_id",
+        "title"
+      ],
+      "optional": [
+        "created_by",
+        "currency",
+        "description",
+        "estimated_fee",
+        "exclusivity",
+        "expected_placement_date",
+        "fee_percentage",
+        "fee_type",
+        "hiring_manager_id",
+        "is_replacement",
+        "job_record_id",
+        "location_id",
+        "notes",
+        "num_positions",
+        "payment_terms_days",
+        "primary_desk_id",
+        "probability",
+        "replacement_reason",
+        "role_requirements",
+        "salary_basis",
+        "salary_estimate",
+        "salary_range",
+        "start_date",
+        "status",
+        "work_type"
+      ]
+    },
+    "create_client_job_role_desk": {
+      "required": [
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id"
+      ]
+    },
+    "create_company": {
+      "required": [
+        "name"
+      ],
+      "optional": [
+        "domain",
+        "employee_estimate",
+        "idempotency_key",
+        "industry",
+        "location",
+        "website"
+      ]
+    },
+    "create_contact": {
+      "required": [
+        "first_name"
+      ],
+      "optional": [
+        "company_name",
+        "email",
+        "idempotency_key",
+        "is_candidate",
+        "is_prospect",
+        "last_name",
+        "linkedin_url",
+        "location",
+        "phone",
+        "recruiter_url",
+        "sales_nav_url",
+        "title"
+      ]
+    },
+    "create_hot_list": {
+      "required": [
+        "name"
+      ],
+      "optional": [
+        "colour",
+        "description",
+        "icp_id",
+        "list_type",
+        "reverse_market_profile_id"
+      ]
+    },
+    "create_icp_profile": {
+      "required": [
+        "title"
+      ],
+      "optional": [
+        "conversation_angles",
+        "differentiators",
+        "disqualifiers",
+        "excluded_company_sizes",
+        "linkedin_keyword",
+        "objection_handling",
+        "outreach_hooks",
+        "outreach_tone",
+        "pain_points",
+        "placement_specialty",
+        "recommended_actions",
+        "recruited_roles",
+        "seek_keywords",
+        "target_company_sizes",
+        "target_departments",
+        "target_funding_stage",
+        "target_industries",
+        "target_locations",
+        "target_revenue_range",
+        "target_seniority",
+        "target_titles",
+        "value_proposition"
+      ]
+    },
+    "delete_contact": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": []
+    },
+    "diagnose_desk": {
+      "required": [
+        "icp_id"
+      ],
+      "optional": []
+    },
+    "dismiss_pending_action": {
+      "required": [
+        "action_id"
+      ],
+      "optional": []
+    },
+    "edit_private_float_draft": {
+      "required": [
+        "campaign_id",
+        "content",
+        "revision"
+      ],
+      "optional": []
+    },
+    "enrol_contacts_in_campaign": {
+      "required": [
+        "campaign_id",
+        "contact_ids"
+      ],
+      "optional": []
+    },
+    "expand_deep_research": {
+      "required": [
+        "report_id"
+      ],
+      "optional": []
+    },
+    "find_company_contacts": {
+      "required": [
+        "company_id"
+      ],
+      "optional": [
+        "function",
+        "icp_id",
+        "seniority"
+      ]
+    },
+    "find_contact_email": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": []
+    },
+    "find_contact_phone": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": []
+    },
+    "generate_campaign_steps": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": [
+        "expected_revision",
+        "num_steps",
+        "profile_id",
+        "profile_revision",
+        "request_id",
+        "step_hints"
+      ]
+    },
+    "generate_client_job_role_brief": {
+      "required": [
+        "job_id",
+        "sources"
+      ],
+      "optional": []
+    },
+    "generate_client_submission_email_draft": {
+      "required": [
+        "preparation_id"
+      ],
+      "optional": [
+        "brief_id",
+        "brief_revision"
+      ]
+    },
+    "generate_icp_profile": {
+      "required": [
+        "title"
+      ],
+      "optional": [
+        "business_context",
+        "context"
+      ]
+    },
+    "generate_private_float_draft": {
+      "required": [
+        "campaign_id",
+        "profile_id",
+        "profile_revision",
+        "request_id"
+      ],
+      "optional": [
+        "expected_revision",
+        "length"
+      ]
+    },
+    "generate_role_intel_report": {
+      "required": [
+        "reverse_market_profile_id"
+      ],
+      "optional": []
+    },
+    "get_bd_brief": {
+      "required": [
+        "icp_id"
+      ],
+      "optional": []
+    },
+    "get_bulk_enrichment_status": {
+      "required": [],
+      "optional": [
+        "action",
+        "job_id"
+      ]
+    },
+    "get_campaign": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": []
+    },
+    "get_campaign_enrollments": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": [
+        "page",
+        "per_page",
+        "status"
+      ]
+    },
+    "get_campaign_generation_status": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": []
+    },
+    "get_campaign_stats": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": []
+    },
+    "get_client_job": {
+      "required": [
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id"
+      ]
+    },
+    "get_company": {
+      "required": [
+        "company_id"
+      ],
+      "optional": []
+    },
+    "get_company_contacts": {
+      "required": [
+        "company_id"
+      ],
+      "optional": [
+        "page",
+        "per_page"
+      ]
+    },
+    "get_contact": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": [
+        "include_conversations",
+        "include_transcripts"
+      ]
+    },
+    "get_credit_balance": {
+      "required": [],
+      "optional": []
+    },
+    "get_enrichment_job": {
+      "required": [
+        "job_key"
+      ],
+      "optional": []
+    },
+    "get_form_submission": {
+      "required": [
+        "form_id",
+        "submission_id"
+      ],
+      "optional": []
+    },
+    "get_hot_list": {
+      "required": [
+        "list_id"
+      ],
+      "optional": [
+        "page",
+        "per_page"
+      ]
+    },
+    "get_icp_profile": {
+      "required": [],
+      "optional": [
+        "companies_fields",
+        "companies_limit",
+        "companies_offset",
+        "count_only",
+        "icp_id",
+        "include_companies",
+        "profile_id"
+      ]
+    },
+    "get_icp_readiness": {
+      "required": [
+        "icp_id"
+      ],
+      "optional": []
+    },
+    "get_morning_brief": {
+      "required": [],
+      "optional": []
+    },
+    "get_pipeline_job": {
+      "required": [
+        "job_id"
+      ],
+      "optional": []
+    },
+    "get_private_float_draft": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": [
+        "revision"
+      ]
+    },
+    "get_research_report": {
+      "required": [
+        "report_id"
+      ],
+      "optional": [
+        "fields"
+      ]
+    },
+    "get_scrape_progress": {
+      "required": [],
+      "optional": [
+        "run_id",
+        "source"
+      ]
+    },
+    "ingest_scraped_profiles": {
+      "required": [
+        "icp_id",
+        "profiles"
+      ],
+      "optional": []
+    },
+    "link_company_to_icp": {
+      "required": [
+        "company_id",
+        "icp_id"
+      ],
+      "optional": [
+        "engagement_bucket",
+        "tier"
+      ]
+    },
+    "link_prospect_to_icp": {
+      "required": [
+        "contact_id",
+        "icp_id"
+      ],
+      "optional": []
+    },
+    "list_business_contexts": {
+      "required": [],
+      "optional": []
+    },
+    "list_campaigns": {
+      "required": [],
+      "optional": [
+        "icp_id",
+        "page",
+        "per_page",
+        "reverse_market_profile_id",
+        "status"
+      ]
+    },
+    "list_client_job_role_brief_sources": {
+      "required": [
+        "job_id"
+      ],
+      "optional": []
+    },
+    "list_client_job_role_briefs": {
+      "required": [
+        "job_id"
+      ],
+      "optional": []
+    },
+    "list_client_job_shortlist": {
+      "required": [
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id",
+        "include_history"
+      ]
+    },
+    "list_client_job_shortlist_events": {
+      "required": [
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id"
+      ]
+    },
+    "list_client_jobs": {
+      "required": [],
+      "optional": [
+        "company_id",
+        "include_archived"
+      ]
+    },
+    "list_form_submissions": {
+      "required": [
+        "form_id"
+      ],
+      "optional": [
+        "limit",
+        "offset"
+      ]
+    },
+    "list_hot_lists": {
+      "required": [],
+      "optional": []
+    },
+    "list_icp_companies": {
+      "required": [],
+      "optional": [
+        "fields",
+        "icp_id",
+        "limit",
+        "location",
+        "offset",
+        "page",
+        "per_page",
+        "profile_id",
+        "status",
+        "sub_niche",
+        "tier"
+      ]
+    },
+    "list_icp_profiles": {
+      "required": [],
+      "optional": []
+    },
+    "list_icp_prospects": {
+      "required": [],
+      "optional": [
+        "email_status",
+        "filter_by_titles",
+        "icp_id",
+        "limit",
+        "offset",
+        "profile_id"
+      ]
+    },
+    "list_inboxes": {
+      "required": [],
+      "optional": []
+    },
+    "list_meeting_notes": {
+      "required": [],
+      "optional": [
+        "calendar_key",
+        "contact_id",
+        "limit",
+        "linked",
+        "offset",
+        "participant",
+        "query",
+        "since",
+        "status",
+        "until"
+      ]
+    },
+    "list_meetings": {
+      "required": [],
+      "optional": [
+        "page",
+        "status",
+        "upcoming_only"
+      ]
+    },
+    "list_new_leads": {
+      "required": [
+        "profile_id"
+      ],
+      "optional": [
+        "bucket",
+        "confidence",
+        "limit",
+        "offset",
+        "order",
+        "profile_type",
+        "projection_revision",
+        "role"
+      ]
+    },
+    "list_pending_actions": {
+      "required": [],
+      "optional": [
+        "action_type",
+        "status"
+      ]
+    },
+    "list_research_reports": {
+      "required": [],
+      "optional": [
+        "include_archived",
+        "page",
+        "per_page"
+      ]
+    },
+    "list_reverse_market_profile_candidates": {
+      "required": [
+        "profile_id"
+      ],
+      "optional": [
+        "limit",
+        "offset"
+      ]
+    },
+    "list_reverse_market_profiles": {
+      "required": [],
+      "optional": []
+    },
+    "list_scrape_configs": {
+      "required": [],
+      "optional": [
+        "include_archived",
+        "page",
+        "per_page"
+      ]
+    },
+    "move_companies_between_icps": {
+      "required": [
+        "dest_icp_id",
+        "source_icp_id"
+      ],
+      "optional": [
+        "company_ids",
+        "move_prospects",
+        "sub_niche"
+      ]
+    },
+    "prepare_candidate_submission": {
+      "required": [
+        "contact_id",
+        "desk_id"
+      ],
+      "optional": [
+        "company_id",
+        "hiring_manager_id",
+        "idempotency_key",
+        "job_id",
+        "new_job_title"
+      ]
+    },
+    "remove_client_job_shortlist_candidate": {
+      "required": [
+        "candidate_id",
+        "job_id"
+      ],
+      "optional": [
+        "confirm",
+        "expected_company_id"
+      ]
+    },
+    "research_company": {
+      "required": [
+        "company_id"
+      ],
+      "optional": [
+        "icp_id"
+      ]
+    },
+    "restore_client_job_shortlist_candidate": {
+      "required": [
+        "candidate_id",
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id"
+      ]
+    },
+    "review_client_job_role_brief": {
+      "required": [
+        "brief_id",
+        "job_id",
+        "revision"
+      ],
+      "optional": []
+    },
+    "revise_client_job_role_brief": {
+      "required": [
+        "brief_id",
+        "content",
+        "job_id",
+        "revision"
+      ],
+      "optional": []
+    },
+    "run_job_scrape": {
+      "required": [
+        "source"
+      ],
+      "optional": [
+        "exclude_companies",
+        "exclude_keywords",
+        "icp_id",
+        "keywords",
+        "locations",
+        "name",
+        "replace",
+        "sector",
+        "seek_classification",
+        "skip_agency_filter"
+      ]
+    },
+    "run_reengagement_sweep": {
+      "required": [],
+      "optional": [
+        "dry_run"
+      ]
+    },
+    "run_saved_config": {
+      "required": [
+        "config_id"
+      ],
+      "optional": [
+        "backfill_days",
+        "force_full",
+        "source"
+      ]
+    },
+    "search_companies": {
+      "required": [],
+      "optional": [
+        "bd_status",
+        "industry",
+        "is_client",
+        "location",
+        "page",
+        "per_page",
+        "query",
+        "state"
+      ]
+    },
+    "search_contacts": {
+      "required": [],
+      "optional": [
+        "email_provider",
+        "email_status",
+        "has_email",
+        "has_phone",
+        "is_candidate",
+        "is_prospect",
+        "order",
+        "page",
+        "per_page",
+        "query",
+        "sort",
+        "state"
+      ]
+    },
+    "search_pipeline_jobs": {
+      "required": [],
+      "optional": [
+        "confidence",
+        "created_after",
+        "days_live",
+        "direction",
+        "fields",
+        "icp_id",
+        "page",
+        "per_page",
+        "query",
+        "reposted",
+        "sector",
+        "sort",
+        "source",
+        "state",
+        "status"
+      ]
+    },
+    "set_meeting_note": {
+      "required": [
+        "meeting_id",
+        "note"
+      ],
+      "optional": []
+    },
+    "set_primary_business_context": {
+      "required": [
+        "name_or_id"
+      ],
+      "optional": []
+    },
+    "trigger_deep_research": {
+      "required": [],
+      "optional": [
+        "brief",
+        "icp_id",
+        "mode",
+        "precision",
+        "reverse_market_profile_id"
+      ]
+    },
+    "unlink_candidate_from_reverse_market_profile": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": []
+    },
+    "update_campaign": {
+      "required": [
+        "campaign_id"
+      ],
+      "optional": [
+        "business_context_id",
+        "campaign_outcome",
+        "candidate_id",
+        "context_notes",
+        "daily_limit",
+        "description",
+        "email_mode",
+        "framework",
+        "icp_id",
+        "include_unsubscribe",
+        "language",
+        "max_delay_minutes",
+        "min_delay_minutes",
+        "name",
+        "reverse_market_profile_id",
+        "send_days",
+        "send_end_hour",
+        "send_start_hour",
+        "send_timezone",
+        "stop_on_reply",
+        "tone",
+        "track_opens",
+        "variant_mode"
+      ]
+    },
+    "update_campaign_step": {
+      "required": [
+        "step_id"
+      ],
+      "optional": [
+        "ai_instruction",
+        "body",
+        "channel",
+        "delay_days",
+        "is_active",
+        "subject",
+        "wait_for"
+      ]
+    },
+    "update_client_job": {
+      "required": [
+        "job_id",
+        "patch"
+      ],
+      "optional": [
+        "expected_company_id"
+      ]
+    },
+    "update_client_job_shortlist_notes": {
+      "required": [
+        "candidate_id",
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id",
+        "notes"
+      ]
+    },
+    "update_client_job_shortlist_status": {
+      "required": [
+        "candidate_id",
+        "job_id",
+        "status"
+      ],
+      "optional": [
+        "correction_reason",
+        "expected_company_id",
+        "guarantee_end_date",
+        "offer_amount",
+        "placement_fee",
+        "start_date"
+      ]
+    },
+    "update_company": {
+      "required": [
+        "company_id"
+      ],
+      "optional": [
+        "abn",
+        "ai_sector",
+        "bd_status",
+        "buying_triggers",
+        "careers_url",
+        "client_tier",
+        "default_fee_percent",
+        "do_not_contact",
+        "domain",
+        "employee_count",
+        "hq_location",
+        "hq_state",
+        "industry",
+        "invalidate_research_signals",
+        "is_client",
+        "linkedin_url",
+        "name",
+        "notes",
+        "operating_states",
+        "payment_terms_days",
+        "phone",
+        "research_notes",
+        "website"
+      ]
+    },
+    "update_contact": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": [
+        "availability_notes",
+        "budget_signal",
+        "candidate_disposition",
+        "candidate_grade",
+        "candidate_next_action",
+        "candidate_next_action_date",
+        "candidate_notes",
+        "candidate_source",
+        "candidate_stage",
+        "client_charge",
+        "comp_base",
+        "comp_currency",
+        "comp_day_rate",
+        "comp_notes",
+        "comp_ote",
+        "company_id",
+        "company_intel",
+        "current_company",
+        "current_employer",
+        "decision_authority",
+        "email",
+        "first_name",
+        "force_referred_by",
+        "is_candidate",
+        "is_favourite",
+        "is_prospect",
+        "last_name",
+        "linkedin_url",
+        "location",
+        "mobility",
+        "notes",
+        "notice_period",
+        "other_phone",
+        "outreach_stage",
+        "pain_points",
+        "personal_email",
+        "phone",
+        "primary_role",
+        "prospect_grade",
+        "prospect_next_action",
+        "prospect_next_action_date",
+        "prospect_notes",
+        "prospect_source",
+        "recruiter_url",
+        "referred_by_contact_id",
+        "salary_zone",
+        "sales_nav_url",
+        "state",
+        "talking_points",
+        "target_role",
+        "title",
+        "work_rights",
+        "work_type"
+      ]
+    },
+    "update_hot_list_member": {
+      "required": [
+        "list_id",
+        "member_id"
+      ],
+      "optional": [
+        "notes",
+        "status",
+        "tier"
+      ]
+    },
+    "update_icp_profile": {
+      "required": [],
+      "optional": [
+        "auto_prospect",
+        "conversation_angles",
+        "desk_sentence",
+        "differentiators",
+        "disqualifiers",
+        "excluded_company_sizes",
+        "excluded_sectors",
+        "force_overwrite",
+        "icp_id",
+        "insourcing_roles",
+        "is_favourite",
+        "is_watched",
+        "linkedin_keyword",
+        "objection_handling",
+        "outreach_hooks",
+        "outreach_tone",
+        "pain_points",
+        "placement_specialty",
+        "profile_id",
+        "recommended_actions",
+        "recruited_roles",
+        "role_rationale",
+        "role_taxonomy",
+        "seek_keywords",
+        "sending_inbox_id",
+        "status",
+        "sub_niches",
+        "target_company_sizes",
+        "target_departments",
+        "target_funding_stage",
+        "target_industries",
+        "target_locations",
+        "target_revenue_range",
+        "target_seniority",
+        "target_subsectors",
+        "target_titles",
+        "title",
+        "value_proposition"
+      ]
+    },
+    "update_pipeline_job": {
+      "required": [
+        "job_id"
+      ],
+      "optional": [
+        "followup_due_date",
+        "no_longer_advertised",
+        "notes",
+        "status"
+      ]
+    },
+    "update_scrape_config": {
+      "required": [
+        "config_id"
+      ],
+      "optional": [
+        "active",
+        "discipline",
+        "exclude_companies",
+        "exclude_keywords",
+        "icp_id",
+        "include_competitors",
+        "keywords",
+        "locations",
+        "monitor_sources",
+        "name",
+        "notify_channel",
+        "notify_on_complete",
+        "posted_within_days",
+        "schedule_interval",
+        "schedule_link_icp_id",
+        "sector",
+        "seek_classification",
+        "skip_agency_filter",
+        "target_titles"
+      ]
+    },
+    "update_search_config_excludes": {
+      "required": [
+        "scrape_config_id"
+      ],
+      "optional": [
+        "add_exclude_companies",
+        "add_exclude_keywords"
+      ]
+    },
+    "verify_contact_email": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": []
+    },
+    "withdraw_client_job_shortlist_candidate": {
+      "required": [
+        "candidate_id",
+        "job_id"
+      ],
+      "optional": [
+        "expected_company_id"
+      ]
+    },
+    "create_esign_document": {
+      "required": [
+        "title"
+      ],
+      "optional": [
+        "candidate_id",
+        "company_id",
+        "contact_id",
+        "custom_message",
+        "fields",
+        "file_base64",
+        "filename",
+        "idempotency_key",
+        "job_id",
+        "merge_values",
+        "purpose",
+        "signers",
+        "source_file_id",
+        "template_id"
+      ]
+    },
+    "diagnose_rmp": {
+      "required": [
+        "profile_id"
+      ],
+      "optional": []
+    },
+    "download_esign_document": {
+      "required": [
+        "document_id"
+      ],
+      "optional": []
+    },
+    "generate_candidate_call_prep": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": [
+        "force"
+      ]
+    },
+    "generate_prospect_call_prep": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": [
+        "force"
+      ]
+    },
+    "get_candidate_call_prep": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": []
+    },
+    "get_conversation": {
+      "required": [
+        "conversation_id"
+      ],
+      "optional": [
+        "after",
+        "include_transcript",
+        "version"
+      ]
+    },
+    "get_esign_document": {
+      "required": [
+        "document_id"
+      ],
+      "optional": []
+    },
+    "get_prospect_call_prep": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": []
+    },
+    "list_campaign_variables": {
+      "required": [],
+      "optional": []
+    },
+    "list_esign_documents": {
+      "required": [],
+      "optional": [
+        "candidate_id",
+        "company_id",
+        "contact_id",
+        "job_id",
+        "page",
+        "per_page",
+        "status"
+      ]
+    },
+    "list_esign_source_files": {
+      "required": [],
+      "optional": [
+        "candidate_id",
+        "company_id",
+        "contact_id",
+        "job_id",
+        "page",
+        "per_page"
+      ]
+    },
+    "list_esign_templates": {
+      "required": [],
+      "optional": [
+        "page",
+        "per_page",
+        "purpose"
+      ]
+    },
+    "preview_esign_document": {
+      "required": [
+        "document_id"
+      ],
+      "optional": []
+    },
+    "process_post_call": {
+      "required": [],
+      "optional": [
+        "contact_id",
+        "conversation_id",
+        "dry_run",
+        "meeting_id",
+        "request_id",
+        "source_type"
+      ]
+    },
+    "remind_esign_signer": {
+      "required": [
+        "document_id",
+        "idempotency_key",
+        "signer_id"
+      ],
+      "optional": [
+        "acknowledge_uncertain"
+      ]
+    },
+    "revise_esign_document": {
+      "required": [
+        "document_id"
+      ],
+      "optional": []
+    },
+    "save_esign_template": {
+      "required": [
+        "document_id",
+        "name"
+      ],
+      "optional": [
+        "merge_schema",
+        "purpose"
+      ]
+    },
+    "send_esign_document": {
+      "required": [
+        "document_id",
+        "expected_revision",
+        "idempotency_key",
+        "review_hash"
+      ],
+      "optional": []
+    },
+    "start_new_shortlist_outcome": {
+      "required": [
+        "candidate_id",
+        "desk_id",
+        "idempotency_key",
+        "job_id",
+        "reason"
+      ],
+      "optional": []
+    },
+    "stop_contact_outreach": {
+      "required": [
+        "contact_id"
+      ],
+      "optional": []
+    },
+    "update_esign_draft": {
+      "required": [
+        "document_id",
+        "expected_revision"
+      ],
+      "optional": [
+        "candidate_id",
+        "company_id",
+        "contact_id",
+        "custom_message",
+        "fields",
+        "job_id",
+        "merge_values",
+        "purpose",
+        "signers",
+        "title"
+      ]
+    },
+    "void_esign_document": {
+      "required": [
+        "document_id"
+      ],
+      "optional": []
+    },
+    "get_reverse_market_profile": {
+      "required": [
+        "profile_id"
+      ],
+      "optional": []
+    },
+    "regenerate_reverse_market_profile": {
+      "required": [
+        "profile_id"
+      ],
+      "optional": [
+        "apply",
+        "context"
+      ]
+    }
+  },
+  "notes": [
+    "Static snapshot of exposed Kolvera MCP schemas; inspect live tools and actual returned costs before execution.",
+    "Production-branch costs verified 14 October 2026. Capability-specific private flows must be selected from the authenticated account's live tools.",
+    "Tool prefixes depend on client connector; listed names are logical names, not literal prefixes."
+  ]
+}

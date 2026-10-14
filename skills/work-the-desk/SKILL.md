@@ -1,9 +1,14 @@
 ---
 name: work-the-desk
-description: The daily runtime loop for live Kolvera Desks — triage New Leads, review what the auto-router filed overnight, clear the Action Inbox, and turn desk signals into outreach. Trigger when the user says "work my desk", "work my desks", "clear my new leads", "triage discovery", "what did the router do", "work the queue", "desk run", or any variation of processing a live desk's daily output. Complements morning-briefing (which reads the day) — this one acts on it.
+description: Review Kolvera desk health, triage authorised New Leads, inspect pending actions and propose relevant outreach.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Work the Desk
+
+Read [Operations contract](references/operations.md) before acting.
 
 An activated Desk produces work every day: New Leads from discovery, auto-routed companies from the router, BD nudges in the Action Inbox. This skill is the loop that turns that output into pipeline — in one pass, most mornings under 15 minutes.
 
@@ -30,15 +35,15 @@ Since the auto-router shipped, discovery is hub-and-spoke: a master intake desk 
 → `list_new_leads` on the intake desk (and any vertical desk with a queue). Each lead carries company, role, location, employee_count, ai_sector, ai_subsector.
 → For each lead, one of three moves:
    - **Belongs on a vertical Desk** → `action_new_leads` with `add` on THAT desk's profile_id. Note: adding maps the company on the destination only — also dismiss the lead on the intake desk so it stops resurfacing there (`action_new_leads` dismiss is desk-scoped, it will not hurt the company anywhere else).
-   - **Genuine pool resident** (real vertical SaaS, no dedicated desk) → leave it. The pool is a monitor, not a to-do list.
-   - **Junk** (recruiter, giant, services firm, marketplace ad posted "@ another company") → `action_new_leads` with `dismiss`.
+   - **Genuine pool resident** (fits the selected intake market, no dedicated desk) → leave it. The pool is a monitor, not a to-do list.
+   - **Outside approved criteria** (assess this customer's industry, company type, size, geography and source quality) → `action_new_leads` with `dismiss`.
 → Batch the calls — one add list and one dismiss list per desk, not per-lead calls.
 → Unclassified companies (ai_subsector null) resolve themselves as the background classifier catches up; do not research them just to triage.
 
 ## Step 3 — Clear the Action Inbox
 
 → `list_pending_actions` — review-gated drafts and nudges queued by automations (re-engagement, reference nudges, post-call).
-→ For each: `approve_pending_action` or `dismiss_pending_action`. Read before approving — these send on approval.
+Read each item and show recipients/content/effects. Use `approve_pending_action` only with explicit send authority covering that item; approval sends. Desk triage is not blanket sending authority. Dismiss only within authorised scope.
 → If the inbox is empty and the user wants re-engagement volume, offer `run_reengagement_sweep` (queues drafts for stale candidates — they land back in this inbox for review, nothing sends directly).
 
 ## Step 4 — Act on the hottest signal

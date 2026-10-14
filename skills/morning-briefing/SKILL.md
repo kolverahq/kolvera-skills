@@ -1,9 +1,14 @@
 ---
 name: morning-briefing
-description: Daily morning digest pulling from Kolvera, calendar, and email. Covers today's meetings, follow-ups due, campaign flags, pipeline activity, and priority actions. Trigger when the user says "morning briefing", "what's on today", "daily briefing", "start my day", or any variation.
+description: Read Kolvera's daily brief, review supported meeting and follow-up evidence, and prioritise the day.
+metadata:
+  last_verified: "2026-10-14"
+  compatible_tools: "Kolvera MCP; inspect live capabilities"
 ---
 
 # Morning Briefing
+
+Read [Operations contract](references/operations.md) before acting.
 
 A scannable daily digest. Everything the user needs to know before the day starts.
 
@@ -24,7 +29,7 @@ Use this first. The manual tools below are a fallback or supplement — pull the
 
 ### 2. Campaign activity (last 24 hours)
 → `list_campaigns` — filter for active campaigns
-→ `get_campaign_stats` — check for new replies since yesterday
+`get_campaign_stats` gives lifetime totals. For replies since yesterday use supported timestamped activity or a validated prior snapshot; otherwise label period coverage unavailable.
 → Flag any replies that need immediate response
 → Flag any bounce spikes or health issues (run the campaign-health checks)
 
